@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章編輯</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        textarea, input[type="text"], input[type="file"], button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: none; /* 禁止調整大小 */
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <h2>發文人名字</h2>
+        </div>
+        <textarea id="title-input" rows="2" placeholder="在此輸入您的文章標題"></textarea>
+        
+        <!-- 文字輸入框 -->
+        <textarea id="text-input" rows="5" placeholder="在此輸入您的文章內容"></textarea>
+        
+        <!-- 標籤輸入框 -->
+        <input type="text" id="tag-input" placeholder="新增標籤，使用#符號">
+        
+        <!-- 上傳圖片 -->
+        <input type="file" id="image-upload" accept="image/*">
+        
+        <!-- 提交按鈕 -->
+        <button onclick="submitArticle()">提交</button>
+    </div>
+
+    <script>
+        // 提交文章的函式
+        function submitArticle() {
+            var title = document.getElementById("title-input").value;
+            // 獲取文字內容
+            var text = document.getElementById("text-input").value;
+            // 獲取標籤內容
+            var tag = document.getElementById("tag-input").value;
+            // 獲取上傳的圖片文件
+            var fileInput = document.getElementById('image-upload');
+            var file = fileInput.files[0];
+            
+            // 在這裡執行提交文章的操作，您可以將上面獲取到的數據發送到服務器
+            // 例如，您可以使用 JavaScript 中的 XMLHttpRequest 或 Fetch API 來向服務器發送 POST 請求
+            
+            // 清空輸入框
+            document.getElementById("title-input").value = "";
+            document.getElementById("text-input").value = "";
+            document.getElementById("tag-input").value = "";
+            document.getElementById("image-upload").value = "";
+        }
+    </script>
+</body>
+</html>
