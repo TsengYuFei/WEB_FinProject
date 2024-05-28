@@ -1,5 +1,4 @@
-#還要加一下not NULL
-
+import random
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -9,6 +8,19 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name="用戶")
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, verbose_name="用戶頭像")
     bio = models.TextField(max_length=500, blank=True, verbose_name="個人簡介")
+    #會員編號自動生成(10位)不用輸入
+    id = models.IntegerField(unique=True, verbose_name="會員編號", primary_key=True)
+
+    def save(self, *args, **kwargs):
+        if not self.member_id:
+            self.member_id = self.generate_unique_member_id()
+        super(UserProfile, self).save(*args, **kwargs)
+
+    def generate_unique_member_id(self):
+        while True:
+            member_id = random.randint(1000000000, 9999999999)
+            if not UserProfile.objects.filter(member_id=member_id).exists():
+                return member_id
 
     def __str__(self):
         return self.user.username
