@@ -1,5 +1,4 @@
-#圖片相關的好像需要載python的東東所以先註解，其他可以正常運作
-#Django內建User可能要再研究一下，或是我覺得我們可以自己在UserProfile裡面直接加attributes就好
+#還要加一下not NULL
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -8,7 +7,7 @@ from django.utils import timezone
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name="用戶")
-    # profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, verbose_name="用戶頭像")
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, verbose_name="用戶頭像")
     bio = models.TextField(max_length=500, blank=True, verbose_name="個人簡介")
 
     def __str__(self):
@@ -37,7 +36,7 @@ class Experience(models.Model):
 
 class Photo(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='photos', verbose_name="文章")
-    # image = models.ImageField(upload_to='uploads/', verbose_name="照片")
+    image = models.ImageField(upload_to='uploads/', verbose_name="照片", null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="上傳時間")
 
     def __str__(self):
