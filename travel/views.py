@@ -17,6 +17,6 @@ def add_member(request):
 def edit_article(request):
     return render(request, 'edit_article.html')
 
-def detail(request, user_name):
-    user = get_object_or_404(User, user_name=UserProfile.user.username)
-    return (request, 'detail.html', {'user': user})
+def detail(request, member_id):
+    member_profile = get_object_or_404(UserProfile, member_id=member_id)
+    return render(request, 'detail.html', {'user': member_profile})
