@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Hello World!</h1>
-</body>
-</html>
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}旅遊經驗分享平台{% endblock %}
+
+
+{% block content %}
+<h1>分享旅途所見</h1>
+<img class="homeimg" src="https://png.pngtree.com/thumb_back/fw800/background/20220426/pngtree-summer-day-in-venice-cityscape-cloud-vacation-photo-image_41557770.jpg" alt="首頁圖">
+
+<hr>
+
+<!--列出所有文章-->
+{% for x in Experience %}
+          <li class="list-group-item  bg-transparent">{{ x.title }}</li>
+{% endfor %}
+{% endblock %}
