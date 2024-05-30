@@ -1,0 +1,25 @@
+{% extends 'Mama.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %} {{ user.user.username }}的窩 {% endblock %}
+</head>
+<body>
+    {% block content %}
+        <h1>{{ user.user.username }}</h1>
+        
+        <ul>
+            <li>{{ user.user.email }}</li>
+            <li>{{ user.user.first_name }}</li>
+            <li>{{ user.user.last_name }}</li>
+            <li>{{ user.user.password }}</li>
+            <li>{{ user.bio }}</li>
+            <li>{{ user.member_id }}</li>
+        </ul>
+        <img src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼">
+    {% endblock %}
+</body>
+</html>
