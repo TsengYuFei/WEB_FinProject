@@ -4,10 +4,22 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css\mama.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mama.css' %}" >
+    {% block CSS %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <h1 class="title">分享旅途所見</h1>
+    <img class="topimg" src="https://www.yottau.com.tw/download/1170x406/7aefb820e8f8fb9fb51226967e014935.png" alt="首頁圖">
+    <div class="linkbox">
+        <div class="link"><a>這邊</a></div>
+        <div class="link"><a>我先</a></div>
+        <div class="link"><a>隨便打</a></div>
+        <div class="link"><a>我不知道</a></div>
+    </div>
     {% block content %}{% endblock %}
+    <div class="bottom">
+        <p>&copy; 2024 Web Programming T05 不可以養的穿山甲 曾予菲 李宜屏 林貞儀 許尹瑄</p>
+    </div>
 </body>
 </html>
