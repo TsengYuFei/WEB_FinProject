@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import UserProfile, Experience, Tag, User
+from .models import UserProfile, Post, Tag, User
 from django.template import loader
 from travel.forms import AddUserForm
 
@@ -16,6 +16,10 @@ def add_member(request):
     
 def edit_article(request):
     return render(request, 'edit_article.html')
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'post_detail.html', {'post': post})
 
 def detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)

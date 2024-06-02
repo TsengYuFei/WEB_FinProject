@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Tag, Experience, Photo, User
+from .models import UserProfile, Tag, Post, Post_Photo, User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import AddUserForm
 
@@ -24,16 +24,16 @@ class UserProfileAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
-class ExperienceAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "user")
 
-class PhotoAdmin(admin.ModelAdmin):
-    list_display = ("experience", "uploaded_at")
+class Post_PhotoAdmin(admin.ModelAdmin):
+    list_display = ("post", "uploaded_at")
 
 admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(Tag,TagAdmin)
-admin.site.register(Experience,ExperienceAdmin)
-admin.site.register(Photo,PhotoAdmin)
+admin.site.register(Post,PostAdmin)
+admin.site.register(Post_Photo,Post_PhotoAdmin)
 # 取消註冊內建的 UserAdmin 並重新註冊自定義的 UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
