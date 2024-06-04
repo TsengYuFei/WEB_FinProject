@@ -1,0 +1,44 @@
+.about{
+    float: left;
+    width: 28%;
+    background-color: rgb(177, 170, 231);
+    padding: 20px;
+    position: relative;
+    padding-top: 40px;
+}
+
+.about img{
+	border-radius: 50%;
+    width: 200px;
+    max-width: 80%;
+    height: auto;
+    margin-left: 17%;
+}
+
+.about h1{
+    position: absolute;
+    left: 25px;
+    top: 20px;
+    z-index: 10;
+}
+
+.about b{
+    background-color: aliceblue;
+    padding: 5px 10px;
+    border-radius: 50px;
+}
+
+.profile{
+    padding-left: 30px;
+}
+
+.article{
+    float: left;
+    padding: 10px 50px;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}

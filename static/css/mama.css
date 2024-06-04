@@ -25,6 +25,7 @@ body{
     padding: 0;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
 .link{
@@ -37,7 +38,7 @@ body{
     background-color: rgb(70, 70, 190);
     height: 100%;
     width: 100%;
-    color: rgb(219, 219, 219);
+    color: rgb(232, 227, 227);
     font-size: larger;
     font-weight: bolder;
 }
@@ -72,4 +73,16 @@ body{
     text-align: center;
     align-content: center;
     font-weight: bold;
+}
+
+.login{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+    color: rgb(183, 177, 177);;
+}
+
+.login a{
+    color: white;
 }

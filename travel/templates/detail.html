@@ -3,24 +3,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block CSS %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+    {% endblock %}
     {% block title %} {{ user.user.username }}的窩 {% endblock %}
 </head>
 <body>
     {% block content %}
-        <h1>{{ user.user.username }}</h1>
-        
-        <ul>
-            <li>{{ user.user.email }}</li>
-            <li>{{ user.user.first_name }}</li>
-            <li>{{ user.user.last_name }}</li>
-            <li>{{ user.user.password }}</li>
-            <li>{{ user.bio }}</li>
-            <li>{{ user.member_id }}</li>
-        </ul>
-        <img src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼">
-        <br>
+        <div class="row">
+            <div class="about">
+                <h1>{{ user.user.username }}</h1>
+                <img src={{user.picture.url}} alt="{{ user.user.username }}的頭貼"><br><br>
+                <p><b>Name</b>&ensp;&ensp;{{ user.user.first_name }} {{ user.user.last_name }}</p>
+                <p><b>Email</b>&ensp;&ensp;{{ user.user.email }}</p>
+                <b>Profile</b>
+                <p class="profile">{{ user.bio }}</p>
+            </div>
+            <div class="article">
+                <p>//這邊等資料庫確定放文章瀏覽</p>
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>
