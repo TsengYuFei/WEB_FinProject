@@ -65,23 +65,14 @@
        
         <form action="." method="POST">
             <div class="header">
+            {% csrf_token %}    
             <img src="https://via.placeholder.com/40" alt="Profile Picture">
-            <h2>{{ addarticalForm.user }}</h2>
+            <h2>{{ request.user}}</h2>
             </div>
-            {% csrf_token %}
-            {{ booking_form.user.label}}: 
-             <br>
-    
-            <label>球場: </label>
-            {{ booking_form.court }} <br>
-    
-            {{ booking_form.date.label}}: 
-            {{ booking_form.date }} <br>
-    
-            {{ booking_form.reason.label}}: 
-            {{ booking_form.reason }} <br>
+  
+            {{ form.as_p }}
             
-            <input type="submit" value="確定預約">
+            <input type="submit" value="上傳">
         </form>
 
     </div>

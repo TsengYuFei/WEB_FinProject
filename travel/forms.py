@@ -24,5 +24,9 @@ class AddArticalForm(forms.ModelForm):
     class Meta:
         model = Post     # 對應的資料
         fields = ['user', 'title', 'created_at', 'tags','description']
-
+class EditArticalForm(forms.ModelForm):
+   
+    class Meta:
+        model = Post     # 對應的資料
+        fields = ['title','tags','description']
     

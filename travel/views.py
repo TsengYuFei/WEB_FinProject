@@ -33,8 +33,10 @@ def add_article(request, post_id):
             initial = {
                 'post': post_id,
                 'user': request.user,
-                'date': date.today(),
-                'reason': '' }
+                'created_at': date.today(),
+                'title': '', 
+                'tags': '',
+                'description': ''}
             addarticalForm = AddArticalForm(initial)
             context = {'addarticalForm': addarticalForm}
             return render(request, 'add_artical.html', context)
@@ -58,6 +60,7 @@ def add_article(request, post_id):
                 'addarticalForm': addarticalForm,
                 'result': result, 
                 'user': user,
+                'created_at': date.today()
             }    
             return render(request, 'add_result.html', context)
         
