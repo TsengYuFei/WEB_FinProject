@@ -32,22 +32,22 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-class Post_Photo(models.Model):
-    image = models.ImageField(upload_to='uploads/', verbose_name="照片", null=True)
-    name = models.CharField(max_length=50, verbose_name="照片名", default="photo")
-
-    def __str__(self):
-        return self.name
-
+    
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="發文者")
     title = models.CharField(max_length=10, verbose_name="文章標題")
     description = models.TextField(verbose_name="文章內容")
     tags = models.ManyToManyField(Tag, related_name='posts', verbose_name="標籤")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="發文時間")
-    photo = models.ManyToManyField(Post_Photo, blank=True)
+    # photo = models.ImageField(upload_to='Post_photos/', null=True, blank=True)
 
     def __str__(self):
         return self.title
 
+class Post_Photo(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='photos', verbose_name="文章")
+    image = models.ImageField(upload_to='uploads/', verbose_name="照片", null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="上傳時間")
+
+    def __str__(self):
+        return f"Photo for {self.post.title}"
