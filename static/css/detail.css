@@ -7,7 +7,7 @@
     padding-top: 40px;
 }
 
-.about img{
+.head{
 	border-radius: 50%;
     width: 200px;
     max-width: 80%;
@@ -41,4 +41,14 @@
     content: "";
     display: table;
     clear: both;
+}
+
+.edit{
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    z-index: 10;
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
 }

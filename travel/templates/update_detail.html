@@ -1,0 +1,18 @@
+{% extends 'Mama.html' %}
+
+{% load static %}
+{% block CSS %}
+  <link rel="stylesheet" type="text/css" href="{% static 'update.css' %}">
+{% endblock %}
+{% block title %} 個人檔案更新 {% endblock %}
+
+{% block content %}
+  <h1>個人檔案更新</h1>
+  <h2>{{ user.user.username }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button><br><br>
+  </form>
+  
+{% endblock %}
