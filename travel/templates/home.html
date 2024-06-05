@@ -9,6 +9,7 @@
 <br>
 <!--列出所有文章-->
 {% for x in Post %}
-    <li class="list-group-item  bg-transparent">{{ x.title }}</li>
+    <li class="list-group-item  bg-transparent"><a href="/post_detail/{{x.id}}"></a>{{ x.title }}</li>
+    
 {% endfor %}
 {% endblock %}

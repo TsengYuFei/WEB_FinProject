@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User,Post
 from django.contrib.auth.forms import UserCreationForm
 
 class AddUserForm(UserCreationForm):
@@ -11,3 +11,11 @@ class AddUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+
+class AddArticalForm(forms.ModelForm):
+   
+    class Meta:
+        model = Post     # 對應的資料
+        fields = ['user', 'court', 'date', 'reason']
+
+    
