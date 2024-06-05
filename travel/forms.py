@@ -23,6 +23,6 @@ class AddArticalForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
-        fields = ['user', 'court', 'date', 'reason']
+        fields = ['user', 'title', 'created_at', 'tags','description']
 
     
