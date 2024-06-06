@@ -6,7 +6,7 @@ from django.utils import timezone
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name="用戶")
-    picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, verbose_name="用戶頭像", help_text="請上傳1:1圖片")
+    picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True, verbose_name="用戶頭像", help_text="請上傳1:1圖片", default="{% static 'picture/defult_head.png' %}")
     bio = models.TextField(max_length=500, blank=True, verbose_name="個人簡介")
     #會員編號自動生成(10位)不用輸入
     member_id = models.CharField(max_length=10, unique=True, verbose_name="會員編號", blank=True, help_text="系統將自動生成十碼會員編號")

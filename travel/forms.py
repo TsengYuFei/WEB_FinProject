@@ -15,6 +15,11 @@ class AddUserForm(UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['bio']
-        labels = {'bio': ''}
-        widgets = {'bio': forms.Textarea(attrs={'cols': 80})}
+        fields = ['picture', 'bio']
+        labels = {
+            'picture': '頭像',
+            'bio': '個人簡介',
+        }
+        widgets = {
+            'bio': forms.Textarea(attrs={'cols': 80}),
+        }

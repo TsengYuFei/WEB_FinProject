@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import UserProfile, Post, Tag, User
 from django.template import loader
@@ -30,16 +30,29 @@ def personal(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
     return render(request, 'personal.html', {'user': member_profile})
 
+# def update_detail(request, member_id):
+#     member_profile = get_object_or_404(UserProfile, member_id=member_id)
+    
+#     if request.method == 'POST':
+#         form = EditUserForm(request.POST, instance=member_profile)
+#         if form.is_valid():
+#             updated_profile = form.save()
+#             return HttpResponseRedirect(reverse('travel:personal', args=[member_id]))
+#     else:
+#         form = EditUserForm(instance=member_profile)
+    
+#     context = {'user': member_profile, 'form': form}
+#     return render(request, 'update_detail.html', context)
+
 def update_detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
-    
     if request.method == 'POST':
-        form = EditUserForm(request.POST, instance=member_profile)
+        form = EditUserForm(request.POST, request.FILES, instance=member_profile)
         if form.is_valid():
-            updated_profile = form.save()
-            return HttpResponseRedirect(reverse('travel:personal', args=[member_id]))
+            form.save()
+            return redirect('profile', member_id=member_profile.member_id)
     else:
         form = EditUserForm(instance=member_profile)
     
-    context = {'user': member_profile, 'form': form}
+    context = {'form': form}
     return render(request, 'update_detail.html', context)

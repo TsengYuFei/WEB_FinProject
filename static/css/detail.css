@@ -45,10 +45,9 @@
 
 .edit{
     position: absolute;
-    top: 14px;
-    right: 18px;
+    top: 17px;
+    right: 20px;
     z-index: 10;
-    width: 80px;
+    width: 65px;
     height: auto;
-    border-radius: 50%;
 }
