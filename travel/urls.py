@@ -12,6 +12,8 @@ urlpatterns = [
     path('<str:member_id>/detail/', views.detail, name = 'detail'),
     path('<str:member_id>/personal/', views.personal, name = 'personal'),
     path('<str:member_id>/personal/edit/', views.update_detail, name = 'update_detail'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 ]
 
 from django.conf.urls.static import static
