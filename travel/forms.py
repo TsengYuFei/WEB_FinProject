@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserProfile
+from .models import User, UserProfile,Post
 from django.contrib.auth.forms import UserCreationForm
 
 class AddUserForm(UserCreationForm):
@@ -15,6 +15,7 @@ class AddUserForm(UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = UserProfile
+<<<<<<< HEAD
         fields = ['picture', 'bio']
         labels = {
             'picture': '頭像',
@@ -23,3 +24,20 @@ class EditUserForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'cols': 80}),
         }
+=======
+        fields = ['bio']
+        labels = {'bio': ''}
+        widgets = {'bio': forms.Textarea(attrs={'cols': 80})}
+
+class AddArticalForm(forms.ModelForm):
+   
+    class Meta:
+        model = Post     # 對應的資料
+        fields = ['user', 'title', 'created_at', 'tags','description']
+class EditArticalForm(forms.ModelForm):
+   
+    class Meta:
+        model = Post     # 對應的資料
+        fields = ['title','tags','description']
+    
+>>>>>>> 68df12423d5e2f6aee90753d5e1e91f0aeb0f31a

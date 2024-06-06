@@ -1,0 +1,20 @@
+{% extends "Mama.html" %}
+
+{% block title %}
+旅遊經驗分享平台
+{% endblock %}
+
+{% block content %}
+
+<p>
+{{ result }}
+
+{% if addarticalForm.errors %}
+<div style="color: red;">
+  {{ addarticalForm.errors }}
+</div>
+{% endif %}
+
+</p>
+
+{% endblock %}
