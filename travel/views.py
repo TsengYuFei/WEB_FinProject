@@ -123,10 +123,10 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                main_page = loader.get_template('home.html')
+                home_page = loader.get_template('home.html')
                 context = {'user': request.user,
                            'message': 'login ok'}
-                return HttpResponse(login_page.render(context, request))
+                return HttpResponse(home_page.render(context, request))
             else:
                 message = 'Login failed (auth fail)'
         else:                    
