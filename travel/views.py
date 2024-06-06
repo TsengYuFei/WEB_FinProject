@@ -29,6 +29,17 @@ def add_member(request):
         new_user = loader.get_template('add_membership.html')
         context = {'form': AddUserForm()}
         return HttpResponse(new_user.render(context, request))
+    elif request.method == 'POST':
+        new_user_form = AddUserForm(request.POST)
+        print('new_user_form: ', new_user_form)
+        if new_user_form.is_valid():
+            print('new_user_form is valid')
+            new_user_form.save()
+            result = 'Add a new user successfully'
+        else:
+            result = new_user_form.errors.as_data()
+        new_user_result = loader.get_template('add_result.html') #test
+        return HttpResponse(new_user_result.render({'result':result}, request))
     
 def edit_article(request):
     return render(request, 'edit_article.html')
