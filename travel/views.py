@@ -123,7 +123,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                home_page = loader.get_template('home.html')
+                home_page = loader.get_template('home.html') ##登入後導到home.html
                 context = {'user': request.user,
                            'message': 'login ok'}
                 return HttpResponse(home_page.render(context, request))
