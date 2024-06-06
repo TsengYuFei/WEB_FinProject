@@ -34,4 +34,8 @@ class EditArticalForm(forms.ModelForm):
     class Meta:
         model = Post     # 對應的資料
         fields = ['title','tags','description']
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=20)
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
     
