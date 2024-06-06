@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Tag, Post, Post_Photo, User
+from .models import UserProfile, Tag, Post, Post_Photo, User, Picture
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import AddUserForm
 
@@ -34,6 +34,7 @@ admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(Tag,TagAdmin)
 admin.site.register(Post,PostAdmin)
 admin.site.register(Post_Photo,Post_PhotoAdmin)
+admin.site.register(Picture)
 # 取消註冊內建的 UserAdmin 並重新註冊自定義的 UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
