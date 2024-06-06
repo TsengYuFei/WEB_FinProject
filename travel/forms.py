@@ -15,7 +15,6 @@ class AddUserForm(UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-<<<<<<< HEAD
         fields = ['picture', 'bio']
         labels = {
             'picture': '頭像',
@@ -24,10 +23,6 @@ class EditUserForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'cols': 80}),
         }
-=======
-        fields = ['bio']
-        labels = {'bio': ''}
-        widgets = {'bio': forms.Textarea(attrs={'cols': 80})}
 
 class AddArticalForm(forms.ModelForm):
    
@@ -40,4 +35,3 @@ class EditArticalForm(forms.ModelForm):
         model = Post     # 對應的資料
         fields = ['title','tags','description']
     
->>>>>>> 68df12423d5e2f6aee90753d5e1e91f0aeb0f31a
