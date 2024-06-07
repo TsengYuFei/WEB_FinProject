@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserProfile,Post
+from .models import User, UserProfile,Post, Tag
 from django.contrib.auth.forms import UserCreationForm
 
 class AddUserForm(UserCreationForm):
@@ -38,4 +38,8 @@ class EditArticalForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
     password = forms.CharField(max_length=20, widget=forms.PasswordInput)
+
+class SearchForm(forms.Form):
+    query = forms.CharField(required=False, label='Search')
+    tag = forms.ModelChoiceField(queryset=Tag.objects.all(), required=False, label='Tag')
     

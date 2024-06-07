@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import UserProfile, Post
+from .models import UserProfile, Post, Tag
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticalForm
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ from django.template import loader
 from django.contrib import auth
 from django.shortcuts import render
 
-from .forms import LoginForm
+from .forms import LoginForm, SearchForm
 
 def home(request):
     posts = Post.objects.all()
@@ -147,8 +147,22 @@ def login(request):
 
 
 def logout(request):
-    ''' 登出 '''
     auth.logout(request)
     main_html = loader.get_template('home.html')
     context = {'user': request.user}
     return HttpResponse(main_html.render(context, request))
+
+def search_posts(request):
+    form = SearchForm(request.GET)
+    posts = Post.objects.all()
+
+    if form.is_valid():
+        query = form.cleaned_data.get('query')
+        tag = form.cleaned_data.get('tag')
+
+        if query:
+            posts = posts.filter(description__icontains=query)
+        if tag:
+            posts = posts.filter(tags=tag)
+
+    return render(request, 'search_results.html', {'form': form, 'posts': posts})
