@@ -148,6 +148,12 @@ def add_article(request):
                 'result': 'Add fail',
                 'created_at': date.today()
             }
+        context = {
+            'addarticleForm': addarticleForm,
+            'pictureForm' : pictureForm,
+            'result': '文章新增成功', 
+            'created_at': date.today()
+        }    
         return render(request, 'add_article_result.html', context)
     else:
         return HttpResponseBadRequest()
