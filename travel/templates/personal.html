@@ -18,7 +18,14 @@
             <a href="edit/"><img class="edit" src="{% static 'picture/pencil.png' %}" alt="編輯"></a>
         </div>
         <div class="article">
-            <p>//這邊等資料庫確定放文章瀏覽</p>
+            {% for post in posts %}
+                <div class="post-item">
+                    <h2 class="post-title"><a class="post" href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
+                    <p class="post-description">{{ post.description|slice:":30" }}...</p>
+                    <p class="post-author">作者: {{ post.user.username }}</p>
+                    <p class="post-date">發文時間: {{ post.created_at }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

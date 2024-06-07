@@ -128,11 +128,21 @@ def post_detail(request, id):
 
 def detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
-    return render(request, 'detail.html', {'user': member_profile})
+    posts = Post.objects.filter(user=member_profile.user)
+    context = {
+      'posts': posts,
+      'user': member_profile,
+    }
+    return render(request, 'detail.html', context)
 
 def personal(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
-    return render(request, 'personal.html', {'user': member_profile})
+    posts = Post.objects.filter(user=member_profile.user)
+    context = {
+      'posts': posts,
+      'user': member_profile,
+    }
+    return render(request, 'detail.html', context)
 
 def update_detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
