@@ -40,7 +40,7 @@ def add_member(request):
             result = 'Add a new user successfully'
         else:
             result = new_user_form.errors.as_data()
-        new_user_result = loader.get_template('add_result.html') #test
+        new_user_result = loader.get_template('add_member_result.html') #test
         return HttpResponse(new_user_result.render({'result':result}, request))
 
 def add_article(request):
