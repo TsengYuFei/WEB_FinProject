@@ -27,12 +27,6 @@ class UserProfile(models.Model):
         
     #user: 與 Django 的 User 模型形成一對一關係。
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True, verbose_name="標籤")
-
-    def __str__(self):
-        return self.name
-
 class Picture(models.Model):
     picture = models.ImageField(upload_to='Post_photos/', null=True, blank=True)
  
@@ -40,7 +34,6 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="發文者")
     title = models.CharField(max_length=10, verbose_name="文章標題")
     description = models.TextField(verbose_name="文章內容")
-    tags = models.ManyToManyField(Tag, related_name='posts', verbose_name="標籤")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="發文時間")
     pictures = models.ManyToManyField(Picture, related_name='posts', verbose_name="內文圖片")
 

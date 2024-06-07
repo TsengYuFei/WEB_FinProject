@@ -16,10 +16,6 @@
             <li>
                 {{ post.title }} - {{ post.description }}
                 <br>
-                Tags: 
-                {% for tag in post.tags.all %}
-                    #{{ tag.name }}
-                {% endfor %}
             </li>
         {% endfor %}
     </ul>

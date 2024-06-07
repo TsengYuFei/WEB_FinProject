@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserProfile,Post, Tag,Picture
+from .models import User, UserProfile,Post,Picture
 from django.contrib.auth.forms import UserCreationForm
 
 class AddUserForm(UserCreationForm):
@@ -27,10 +27,9 @@ class EditUserForm(forms.ModelForm):
 class AddArticleForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'tags', 'description']
+        fields = ['title', 'description']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
-            'tags': forms.TextInput(attrs={'placeholder': 'Enter tags here, separated by commas', 'class': 'form-control'}),
             'description': forms.Textarea(attrs={'placeholder': 'Enter your description here', 'class': 'form-control'}),
         }
 
@@ -46,7 +45,7 @@ class EditArticleForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
-        fields = ['title','tags','description']
+        fields = ['title','description']
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -54,5 +53,4 @@ class LoginForm(forms.Form):
 
 class SearchForm(forms.Form):
     query = forms.CharField(required=False, label='Search')
-    tag = forms.CharField(required=False, label='Tag Search')
     

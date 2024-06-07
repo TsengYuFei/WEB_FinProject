@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest
-from .models import UserProfile, Post, Tag,Picture
+from .models import UserProfile, Post,Picture
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
 from django.contrib.auth.decorators import login_required
@@ -56,7 +56,6 @@ def edit_article(request):
 #                 'user': request.user,
 #                 'created_at': date.today(),
 #                 'title': '', 
-#                 'tags': '',
 #                 'description': '',
 #                 'pictures':None}
 #             initial2 = {
@@ -120,7 +119,7 @@ def add_article(request):
             addarticleForm.save_m2m()
 
             if pictureForm.is_valid():
-                
+
                 files = request.FILES.getlist('picture')
                 if files:
                     for file in files:
@@ -228,16 +227,10 @@ def search_posts(request):
 
     if form.is_valid():
         query = form.cleaned_data.get('query')
-        tag = form.cleaned_data.get('tag')
 
         if query:
             posts = posts.filter(
                 Q(title__icontains=query) | Q(description__icontains=query)
             )
-        if tag:
-            tag_names = tag.split()
-            ##tags = Tag.objects.filter(name__in=tag_names)
-            ##posts = posts.filter(tags__in=tags).distinct()
-            posts = posts.exclude(tags__name__in=tag_names).distinct()
 
     return render(request, 'search_results.html', {'form': form, 'posts': posts})

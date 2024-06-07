@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Tag, Post, User, Picture
+from .models import UserProfile, Post, User, Picture
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import AddUserForm
 
@@ -21,16 +21,12 @@ class CustomUserAdmin(BaseUserAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ("user",)
 
-class TagAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "user")
 
 
 
 admin.site.register(UserProfile,UserProfileAdmin)
-admin.site.register(Tag,TagAdmin)
 admin.site.register(Post,PostAdmin)
 
 admin.site.register(Picture)
