@@ -125,8 +125,9 @@ def delete_article(request,id):
         return HttpResponseForbidden("You are not allowed to delete this post.")
 
     if request.method == 'POST':
+        member_id = post.user.profile.member_id
         post.delete()
-        return redirect('travel:user_posts')
+        return redirect(reverse('travel:personal', args=[member_id]))
     context = {
         'post': post
     }
