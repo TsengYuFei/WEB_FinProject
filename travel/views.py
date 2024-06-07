@@ -16,6 +16,8 @@ from django.shortcuts import render
 
 from .forms import LoginForm, SearchForm
 
+from django.db.models import Q
+
 def home(request):
     posts = Post.objects.all()
     template = loader.get_template('home.html')
@@ -153,7 +155,7 @@ def logout(request):
     return HttpResponse(main_html.render(context, request))
 
 def search_posts(request):
-    form = SearchForm(request.GET)
+    form = SearchForm(request.GET or None)
     posts = Post.objects.all()
 
     if form.is_valid():
@@ -161,7 +163,9 @@ def search_posts(request):
         tag = form.cleaned_data.get('tag')
 
         if query:
-            posts = posts.filter(description__icontains=query)
+            posts = posts.filter(
+                Q(title__icontains=query) | Q(description__icontains=query)
+            )
         if tag:
             posts = posts.filter(tags=tag)
 
