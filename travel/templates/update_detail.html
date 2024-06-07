@@ -9,10 +9,10 @@
 {% block content %}
   <h1>個人檔案更新</h1>
   <h2>{{ user.user.username }}</h2>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save changes</button><br><br>
+    <button type="submit">儲存</button><br><br>
   </form>
   
 {% endblock %}

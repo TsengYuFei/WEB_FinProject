@@ -1,11 +1,22 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest
-from .models import UserProfile, Post
+from .models import UserProfile, Post, Tag
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticalForm
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.urls import reverse
+
+from django.contrib.auth import authenticate
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.template import loader
+from django.contrib import auth
+from django.shortcuts import render
+
+from .forms import LoginForm, SearchForm
+
+from django.db.models import Q
 
 def home(request):
     posts = Post.objects.all()
@@ -20,6 +31,17 @@ def add_member(request):
         new_user = loader.get_template('add_membership.html')
         context = {'form': AddUserForm()}
         return HttpResponse(new_user.render(context, request))
+    elif request.method == 'POST':
+        new_user_form = AddUserForm(request.POST)
+        print('new_user_form: ', new_user_form)
+        if new_user_form.is_valid():
+            print('new_user_form is valid')
+            new_user_form.save()
+            result = 'Add a new user successfully'
+        else:
+            result = new_user_form.errors.as_data()
+        new_user_result = loader.get_template('add_result.html') #test
+        return HttpResponse(new_user_result.render({'result':result}, request))
     
 def edit_article(request):
     return render(request, 'edit_article.html')
@@ -88,14 +110,65 @@ def personal(request, member_id):
 
 def update_detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
-    
     if request.method == 'POST':
-        form = EditUserForm(request.POST, instance=member_profile)
+        form = EditUserForm(request.POST, request.FILES, instance=member_profile)
         if form.is_valid():
-            updated_profile = form.save()
-            return HttpResponseRedirect(reverse('travel:personal', args=[member_id]))
+            form.save()
+            return redirect(reverse('travel:personal', args=[member_id]))
     else:
         form = EditUserForm(instance=member_profile)
     
-    context = {'user': member_profile, 'form': form}
+    context = {'form': form}
     return render(request, 'update_detail.html', context)
+
+def login(request):
+    login_page = loader.get_template('login.html')
+    if request.method == 'GET':
+        login_form = LoginForm()
+        context = {
+            'user': request.user,
+            'login_form': login_form,
+        }
+        return HttpResponse(login_page.render(context, request))
+    elif request.method == "POST":
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+                home_page = loader.get_template('home.html') ##登入後導到home.html
+                context = {'user': request.user,
+                           'message': 'login ok'}
+                return HttpResponse(home_page.render(context, request))
+            else:
+                message = 'Login failed (auth fail)'
+        else:                    
+            print ('Login error (login form is not valid)')
+    else:
+        print ('Error on request (not GET/POST)')
+
+
+def logout(request):
+    auth.logout(request)
+    main_html = loader.get_template('home.html')
+    context = {'user': request.user}
+    return HttpResponse(main_html.render(context, request))
+
+def search_posts(request):
+    form = SearchForm(request.GET or None)
+    posts = Post.objects.all()
+
+    if form.is_valid():
+        query = form.cleaned_data.get('query')
+        tag = form.cleaned_data.get('tag')
+
+        if query:
+            posts = posts.filter(
+                Q(title__icontains=query) | Q(description__icontains=query)
+            )
+        if tag:
+            posts = posts.filter(tags=tag)
+
+    return render(request, 'search_results.html', {'form': form, 'posts': posts})
