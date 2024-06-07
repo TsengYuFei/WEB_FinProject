@@ -133,7 +133,7 @@ def add_article(request):
                 }
                 return render(request, 'add_article_result.html', context)
             
-            return redirect('post_detail', post_id=post.id)
+            # return redirect('post_detail', post_id=post.id)
 
         else:
             context = {
@@ -142,7 +142,7 @@ def add_article(request):
                 'result': 'Add fail',
                 'created_at': date.today()
             }
-            return render(request, 'add_article_result.html', context)
+        return render(request, 'add_article_result.html', context)
     else:
         return HttpResponseBadRequest()
         
