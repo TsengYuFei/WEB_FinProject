@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,HttpResponseForbidden
 from .models import UserProfile, Post,Picture
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
@@ -45,6 +45,17 @@ def add_member(request):
     
 def edit_article(request):
     return render(request, 'edit_article.html')
+
+def delete_article(request,post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if post.user != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this post.")
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('user_posts')
+
+    return render(request, 'delete_article.html', {'post': post})
 
 def add_article(request):
     if request.method == 'GET':
@@ -114,9 +125,7 @@ def post_detail(request, post_id):
       'post': post
     }
     return HttpResponse(template.render(context, request))
-    # return render(request, 'post_detail.html', context)
-
-# {'post': post}
+  
 
 
 def detail(request, member_id):
