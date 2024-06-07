@@ -80,8 +80,16 @@
     <div class="post-content">{{ post.description }}</div>
     <div class="post-photos">
         {% for picture in post.pictures.all %}
-            <img src="{{ picture.image.url }}" class="post-photo" alt="Post_photo">
+            <img src="{{ picture.picture }}" class="post-photo" alt="Post_photo">
         {% endfor %}
     </div>
+    {% if post.user == request.user %}
+        <div class="actions">
+            <a href="{% url 'edit_article' post.id %}">編輯文章</a>
+            <a href="{% url 'delete_article' post.id %}">删除文章</a>
+        </div>
+    {% endif %}
+   
+
 </div>
 {% endblock %}

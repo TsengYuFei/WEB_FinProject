@@ -42,20 +42,6 @@ def add_member(request):
             result = new_user_form.errors.as_data()
         new_user_result = loader.get_template('add_result.html') #test
         return HttpResponse(new_user_result.render({'result':result}, request))
-    
-def edit_article(request):
-    return render(request, 'edit_article.html')
-
-def delete_article(request,post_id):
-    post = get_object_or_404(Post, id=post_id)
-    if post.user != request.user:
-        return HttpResponseForbidden("You are not allowed to delete this post.")
-
-    if request.method == 'POST':
-        post.delete()
-        return redirect('user_posts')
-
-    return render(request, 'delete_article.html', {'post': post})
 
 def add_article(request):
     if request.method == 'GET':
@@ -116,7 +102,19 @@ def add_article(request):
         return render(request, 'add_article_result.html', context)
     else:
         return HttpResponseBadRequest()
-        
+def edit_article(request):
+    return render(request, 'edit_article.html')
+
+def delete_article(request,post_id):        
+    post = Post.objects.get(Post,id = post_id )
+    if post.user != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this post.")
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('user_posts')
+
+    return render(request, 'delete_article.html', {'post': post})        
                
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
