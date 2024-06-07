@@ -234,3 +234,9 @@ def search_posts(request):
             )
 
     return render(request, 'search_results.html', {'form': form, 'posts': posts})
+
+from .models import Post
+
+def home(request):
+    posts = Post.objects.all()
+    return render(request, 'home.html', {'posts': posts})

@@ -1,15 +1,21 @@
 {% extends "Mama.html" %}
 {% load static %}
-
 {% block title %}旅遊經驗分享平台{% endblock %}
 
-
+{% block CSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
 {% block content %}
-
-<br>
-<!--列出所有文章-->
-{% for x in Post %}
-    <li class="list-group-item  bg-transparent"><a href="/post_detail/{{x.id}}"></a>{{ x.title }}</li>
-    
-{% endfor %}
+<div class="post-list">
+    <h1>所有文章:</h1>
+    <!-- 列出所有文章 -->
+    {% for post in posts %}
+    <div class="post-item">
+        <h2 class="post-title"><a href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
+        <p class="post-description">{{ post.description }}</p>
+        <p class="post-author">作者: {{ post.user.username }}</p>
+        <p class="post-date">發文時間: {{ post.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

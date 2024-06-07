@@ -1,0 +1,29 @@
+/* 在你的 CSS 文件中添加以下样式 */
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+
+.post-item {
+    background-color: #6ce2e472;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.post-title {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.post-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.post-author, .post-date {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
