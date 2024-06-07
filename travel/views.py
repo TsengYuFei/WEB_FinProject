@@ -6,7 +6,7 @@ from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.urls import reverse
-
+from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -46,58 +46,6 @@ def add_member(request):
 def edit_article(request):
     return render(request, 'edit_article.html')
 
-# @login_required
-# def add_article(request):
-  
-#     if request.user.is_authenticated:
-#         if request.method == 'GET':
-            
-#             initial1 = {
-#                 'user': request.user,
-#                 'created_at': date.today(),
-#                 'title': '', 
-#                 'description': '',
-#                 'pictures':None}
-#             initial2 = {
-#                 'picture': None
-#             }
-#             addarticleForm = AddArticleForm(initial1)
-#             pictureForm = PictureForm(initial2 )
-#             context = {'addarticleForm': addarticleForm,
-#                        'pictureForm' : pictureForm
-#                        }
-#             return render(request, 'add_article.html', context)
-#         elif request.method == "POST":
-           
-#             print (f"request.POST: {request.POST}")
-#             try:
-#                 user = UserProfile.objects.get(user=request.user)
-#             except:
-#                 print (f'{request.user} is not a member')
-#                 return render(request, 'login.html')
-                
-#             addarticleForm = AddArticleForm(request.POST)
-#             if addarticleForm.is_valid():
-#                 post =  addarticleForm.save(commit=False)
-#                 post.user = request.user
-#                 post.save()
-#                 addarticleForm.save_m2m()
-#                 print ('addarticle successfully (saved)')
-#                 result = 'Add ok'
-#             else:
-#                 print ('Add fails (form is not valid)')
-#                 result = 'Add fail'
-#             context = {
-#                 'addarticleForm': addarticleForm,
-#                 'pictureForm' : pictureForm,
-#                 'result': result, 
-#                 'user': user,
-#                 'created_at': date.today()
-#             }    
-#             return render(request, 'add_article_result.html', context)
-#         else:
-#             return HttpResponseBadRequest()
-        
 def add_article(request):
     if request.method == 'GET':
         addarticleForm = AddArticleForm()
@@ -160,7 +108,7 @@ def add_article(request):
         
                
 def post_detail(request, post_id):
-    post = Post.objects.get( id=post_id)
+    post = Post.objects.get( id = post_id )
     template = loader.get_template('post_detail.html')
     context = {
       'post': post

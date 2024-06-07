@@ -72,17 +72,17 @@
 <body>
     <div class="container">
         <div class="post-header">
-            <img src="{{ post.user.profile.profile_picture.url }}" alt="Author's profile picture">
+            <img src="{{ post.user.profile.picture.url }}" alt="Author's profile picture">
+            <div class="post-author">By {{ post.user.username }}</div>
             <div>
                 <div class="post-title">{{ post.title }}</div>
-                <div class="post-author">By {{ post.user.username }}</div>
                 <div class="post-date">Posted on {{ post.created_at|date:"Y-m-d H:i" }}</div>
             </div>
         </div>
         <div class="post-content">{{ post.description }}</div>
         <div class="post-photos">
-            {% for photo in post.photos.all %}
-                <img src="{{ photo.image.url }}" class="post-photo" alt="Post_photo">
+            {% for picture in post.pictures.all %}
+                <img src="{{ picture.image.url }}" class="post-photo" alt="Post_photo">
             {% endfor %}
         </div>
     </div>
