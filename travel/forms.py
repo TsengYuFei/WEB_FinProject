@@ -41,5 +41,5 @@ class LoginForm(forms.Form):
 
 class SearchForm(forms.Form):
     query = forms.CharField(required=False, label='Search')
-    tag = forms.ModelChoiceField(queryset=Tag.objects.all(), required=False, label='Tag')
+    tag = forms.CharField(required=False, label='Tag Search')
     

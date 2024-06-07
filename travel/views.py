@@ -167,6 +167,9 @@ def search_posts(request):
                 Q(title__icontains=query) | Q(description__icontains=query)
             )
         if tag:
-            posts = posts.filter(tags=tag)
+            tag_names = tag.split()
+            ##tags = Tag.objects.filter(name__in=tag_names)
+            ##posts = posts.filter(tags__in=tags).distinct()
+            posts = posts.exclude(tags__name__in=tag_names).distinct()
 
     return render(request, 'search_results.html', {'form': form, 'posts': posts})
