@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest
 from .models import UserProfile, Post, Tag
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticalForm
@@ -85,6 +85,8 @@ def add_article(request, post_id):
                 'created_at': date.today()
             }    
             return render(request, 'add_result.html', context)
+        else:
+            return HttpResponseBadRequest()
         
 def post_detail(request, post_id):
     post = Post.objects.get( id=post_id)
