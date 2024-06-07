@@ -102,19 +102,35 @@ def add_article(request):
         return render(request, 'add_article_result.html', context)
     else:
         return HttpResponseBadRequest()
-def edit_article(request):
-    return render(request, 'edit_article.html')
+def edit_article(request, id):
+    post = get_object_or_404(Post, id=id, user=request.user)
 
-def delete_article(request,post_id):        
-    post = Post.objects.get(Post,id = post_id )
+    if request.method == 'POST':
+        form = AddArticleForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', id=post.id)
+    else:
+        form = AddArticleForm(instance=post)
+
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'edit_article.html', context)
+
+def delete_article(request,id):        
+    post = get_object_or_404(Post, id= id, user=request.user)
     if post.user != request.user:
         return HttpResponseForbidden("You are not allowed to delete this post.")
 
     if request.method == 'POST':
         post.delete()
         return redirect('user_posts')
-
-    return render(request, 'delete_article.html', {'post': post})        
+    context = {
+        'post': post
+    }
+    return render(request, 'delete_article.html',context)        
                
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)

@@ -66,7 +66,7 @@
         <form action="." method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header">
-            <img src="{{ request.user.picture.url }}" alt="大頭">
+            <img src="{{ request.user.picture }}" alt="大頭">
             <h2>{{ request.user.username }}</h2>
             </div>
             <label>標題: </label>
