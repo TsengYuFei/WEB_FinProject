@@ -118,11 +118,11 @@ def add_article(request):
         return HttpResponseBadRequest()
         
                
-def post_detail(request, post_id):
-    post = Post.objects.get( id = post_id )
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
     template = loader.get_template('post_detail.html')
     context = {
-      'post': post
+      'post': post,
     }
     return HttpResponse(template.render(context, request))
   

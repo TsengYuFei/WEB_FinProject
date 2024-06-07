@@ -7,19 +7,31 @@
 }
 
 .post-item {
-    background-color: #6ce2e472;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     margin-bottom: 20px;
     border-radius: 10px;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .post-title {
     font-size: 24px;
     margin-top: 0;
     margin-bottom: 10px;
+
+
+}
+body {
+    background-color: #e5f5fd;
+}
+a.post{
+    text-decoration:none
 }
 
+a:hover{
+    color: #1181e3;
+}
 .post-description {
     font-size: 16px;
     margin-bottom: 10px;
