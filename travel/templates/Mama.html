@@ -21,8 +21,9 @@
     <img class="topimg" src="https://www.yottau.com.tw/download/1170x406/7aefb820e8f8fb9fb51226967e014935.png" alt="首頁圖">
     <div class="linkbox">
         <div class="link"><a class="up" href="/">HOME</a></div>
-        <div class="link"><a class="up">沒東西要放</a></div>
+    
         {% if request.user.is_authenticated %}
+        <div class="link"><a href="{% url 'travel:personal' member_id=request.user.profile.member_id %}" class="up">我的窩</a></div>
         <div class="link"><a class="up" href="/add_article">新增文章</a></div>
         {% endif %}
         <div class="link"><a class="up" href="/search">搜尋文章</a></div>
