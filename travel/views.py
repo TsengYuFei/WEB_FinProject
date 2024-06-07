@@ -113,16 +113,26 @@ def add_article(request):
         addarticleForm = AddArticleForm(request.POST)
         pictureForm = PictureForm(request.POST, request.FILES)
 
-        if addarticleForm.is_valid() and pictureForm.is_valid():
+        if addarticleForm.is_valid() :
             post = addarticleForm.save(commit=False)
             post.user = request.user
             post.save()
             addarticleForm.save_m2m()
 
-            picture = pictureForm.save(commit=False)
-            picture.save()
-            post.pictures.add(picture)
-            addarticleForm.save_m2m()
+            if pictureForm.is_valid():
+            
+                picture = pictureForm.save(commit=False)
+                picture.save()
+                post.pictures.add(picture)
+            else:
+                context = {
+                'addarticleForm': addarticleForm,
+                'pictureForm': pictureForm,
+                'result': 'Photo Add fail',
+                'created_at': date.today()
+                }
+                return render(request, 'add_article_result.html', context)
+            
             return redirect('post_detail', post_id=post.id)
 
         else:
@@ -135,7 +145,6 @@ def add_article(request):
             return render(request, 'add_article_result.html', context)
     else:
         return HttpResponseBadRequest()
-    
         
                
 def post_detail(request, post_id):

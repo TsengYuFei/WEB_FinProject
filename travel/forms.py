@@ -27,7 +27,7 @@ class EditUserForm(forms.ModelForm):
 class AddArticleForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'tags', 'description']
+        fields = ['user','title', 'tags', 'description','pictures']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'placeholder': 'Enter tags here, separated by commas', 'class': 'form-control'}),
