@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest
-from .models import UserProfile, Post, Tag
+from .models import UserProfile, Post, Tag,Picture
 from django.template import loader
-from travel.forms import AddUserForm, EditUserForm,AddArticleForm
+from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.urls import reverse
@@ -52,15 +52,21 @@ def add_article(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             
-            initial = {
+            initial1 = {
                 'user': request.user,
                 'created_at': date.today(),
                 'title': '', 
                 'tags': '',
                 'description': '',
                 'pictures':None}
-            addarticleForm = AddArticleForm(initial)
-            context = {'addarticleForm': addarticleForm}
+            initial2 = {
+                'picture': None
+            }
+            addarticleForm = AddArticleForm(initial1)
+            pictureForm = PictureForm(initial2 )
+            context = {'addarticleForm': addarticleForm,
+                       'pictureForm' : pictureForm
+                       }
             return render(request, 'add_article.html', context)
         elif request.method == "POST":
            
@@ -70,10 +76,12 @@ def add_article(request):
             except:
                 print (f'{request.user} is not a member')
                 return render(request, 'login.html')
-                pass
+                
             addarticleForm = AddArticleForm(request.POST)
             if addarticleForm.is_valid():
-                addarticleForm.save()
+                post =  addarticleForm.save(commit=False)
+                post.user = request.user
+                post.save()
                 print ('addarticle successfully (saved)')
                 result = 'Add ok'
             else:
@@ -81,6 +89,7 @@ def add_article(request):
                 result = 'Add fail'
             context = {
                 'addarticleForm': addarticleForm,
+                'pictureForm' : pictureForm,
                 'result': result, 
                 'user': user,
                 'created_at': date.today()
@@ -89,46 +98,6 @@ def add_article(request):
         else:
             return HttpResponseBadRequest()
         
-# def add_article(request):
-  
-#         if request.method == 'GET':
-            
-#             initial = {
-#                 'user': request.user,
-#                 'created_at': date.today(),
-#                 'title': '', 
-#                 'tags': '',
-#                 'description': '',
-#                 'pictures':None}
-#             addarticalForm = AddArticleForm(initial)
-#             context = {'addarticalForm': addarticalForm}
-#             return render(request, 'add_article.html', context)
-#         elif request.method == "POST":
-           
-#             print (f"request.POST: {request.POST}")
-#             try:
-#                 user = UserProfile.objects.get(user=request.user)
-#             except:
-#                 print (f'{request.user} is not a member')
-#                 return render(request, 'login.html')
-#                 pass
-#             addarticalForm = AddArticleForm(request.POST)
-#             if addarticalForm.is_valid():
-#                 addarticalForm.save()
-#                 print ('addarticle successfully (saved)')
-#                 result = 'Add ok'
-#             else:
-#                 print ('Add fails (form is not valid)')
-#                 result = 'Add fail'
-#             context = {
-#                 'addarticleForm': addarticalForm,
-#                 'result': result, 
-#                 'user': user,
-#                 'created_at': date.today()
-#             }    
-#             return render(request, 'add_article_result.html', context)
-#         else:
-#             return HttpResponseBadRequest()
         
 def post_detail(request, post_id):
     post = Post.objects.get( id=post_id)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserProfile,Post, Tag
+from .models import User, UserProfile,Post, Tag,Picture
 from django.contrib.auth.forms import UserCreationForm
 
 class AddUserForm(UserCreationForm):
@@ -28,7 +28,20 @@ class AddArticleForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
-        fields = ['user', 'title', 'created_at', 'tags','description','pictures']
+        fields = [ 'title','tags','description','pictures']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'placeholder': 'Enter tags here, separated by commas', 'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Enter your description here', 'class': 'form-control'}),
+            # 'pictures':forms.ImageField()
+        }
+class PictureForm(forms.ModelForm):
+    class Meta:
+        model = Picture
+        fields = ['picture']
+        widgets = {
+            'picture': forms.ClearableFileInput(attrs={'multiple': False}),
+        }
 class EditArticleForm(forms.ModelForm):
    
     class Meta:

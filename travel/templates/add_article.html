@@ -63,14 +63,24 @@
     
     <div class="container">
        
-        <form action="." method="POST">
+        <form action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="header">
-            {% csrf_token %}    
-            <img src="{{ request.user.profile.picture.url }}" alt="user profile Picture">
+            <img src="{{ request.user.picture.url }}" alt="user profile Picture">
             <h2>{{ request.user}}</h2>
             </div>
-  
-            {{ form.as_p }}
+            <label>標題: </label>
+            <p>{{ addarticleForm.title }}</p> 
+            <br>
+            <label>Tag#: </label>
+            <p>{{ addarticleForm.tags }} </p>
+            <br>
+            <label>內文: </label>
+            <p>{{ addarticleForm.description }} </p>
+            <br>
+            <label>照片: </label>
+            <input type="file" name="image" multiple>
+            <br>
             
             <input type="submit" value="上傳">
         </form>
