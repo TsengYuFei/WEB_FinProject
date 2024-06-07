@@ -70,23 +70,24 @@
 {% block content %}
 <div class="container">
     <div class="post-header">
-        <img src="{{ post.user.profile.picture.url }}" alt="Author's profile picture">
-        <div class="post-author">By {{ post.user.username }}</div>
+        <img src="{{ post.user.profile_pictures.picture }}" alt="Author's profile picture">
+        <div class="post-author">{{ post.user.username }}</div>
         <div>
             <div class="post-title">{{ post.title }}</div>
             <div class="post-date">Posted on {{ post.created_at|date:"Y-m-d H:i" }}</div>
         </div>
     </div>
+    
     <div class="post-content">{{ post.description }}</div>
     <div class="post-photos">
         {% for picture in post.pictures.all %}
-            <img src="{{ picture.picture }}" class="post-photo" alt="Post_photo">
+            <img src="{{ picture.Post_photos.picture }}" class="post-photo" alt="Post_photo">
         {% endfor %}
     </div>
     {% if post.user == request.user %}
         <div class="actions">
-            <a href="{% url 'edit_article' post.id %}">編輯文章</a>
-            <a href="{% url 'delete_article' post.id %}">删除文章</a>
+            <!-- <a href="{% url 'edit_article' post.id %}">編輯文章</a>
+            <a href="{% url 'delete_article' post.id %}">删除文章</a> -->
         </div>
     {% endif %}
    
