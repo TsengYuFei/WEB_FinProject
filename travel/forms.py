@@ -24,12 +24,12 @@ class EditUserForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'cols': 80}),
         }
 
-class AddArticalForm(forms.ModelForm):
+class AddArticleForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
-        fields = ['user', 'title', 'created_at', 'tags','description']
-class EditArticalForm(forms.ModelForm):
+        fields = ['user', 'title', 'created_at', 'tags','description','pictures']
+class EditArticleForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
