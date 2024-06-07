@@ -2,11 +2,63 @@ from django import forms
 from .models import User, UserProfile,Post,Picture
 from django.contrib.auth.forms import UserCreationForm
 
-class AddUserForm(UserCreationForm):
+from django.contrib.auth.password_validation import validate_password, UserAttributeSimilarityValidator, MinimumLengthValidator, CommonPasswordValidator, NumericPasswordValidator
+from django.core.exceptions import ValidationError
 
-    email = forms.EmailField(label='Email', max_length=254)
-    first_name = forms.CharField(label='First Name', max_length=30)
-    last_name = forms.CharField(label='Last Name', max_length=30)
+from django.contrib.auth.models import User
+
+
+class AddUserForm(UserCreationForm):
+    username = forms.CharField(
+        label='Username',
+        max_length=150,
+        help_text='請輸入150個字符以內的用戶名(字母、數字、@/./+/-/_組成)',
+        error_messages={
+            'required': '請輸入用戶名',
+        }
+    )
+    email = forms.EmailField(
+        label='Email',
+        max_length=254,
+        error_messages={
+            'required': '請輸入您的電子郵件地址',
+            'invalid': '請輸入有效的電子郵件地址'
+        }
+    )
+    first_name = forms.CharField(
+        label='First Name',
+        max_length=30,
+        error_messages={
+            'required': '請輸入您的名字'
+        }
+    )
+    last_name = forms.CharField(
+        label='Last Name',
+        max_length=30,
+        error_messages={
+            'required': '請輸入您的姓氏'
+        }
+    )
+    password1 = forms.CharField(
+        label='Password',
+        strip=False,
+        widget=forms.PasswordInput,
+        error_messages={
+            'required': '請輸入密碼',
+        },
+    )
+    password2 = forms.CharField(
+        label='Password confirmation',
+        widget=forms.PasswordInput,
+        strip=False,
+        help_text='請再次輸入密碼以進行確認。',
+        error_messages={
+            'required': '請確認您的密碼',
+        },
+    )
+    # email = forms.EmailField(label='Email', max_length=254)
+    # first_name = forms.CharField(label='First Name', max_length=30)
+    # last_name = forms.CharField(label='Last Name', max_length=30)
 
     class Meta:
         model = User
