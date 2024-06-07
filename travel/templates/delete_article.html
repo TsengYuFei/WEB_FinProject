@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>編輯文章</title>
+    <title>刪除文章</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,33 +23,28 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        textarea, input[type="text"], input[type="file"], button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
         button {
-            background-color: #007bff;
+            background-color: #dc3545;
             color: #fff;
             border: none;
+            padding: 10px;
             cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>編輯文章</h1>
+        <h1>刪除文章</h1>
+        <p>你確定要刪除這篇文章嗎？</p>
         <form action="." method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">保存修改</button>
+            <button type="submit">刪除</button>
         </form>
     </div>
 </body>
