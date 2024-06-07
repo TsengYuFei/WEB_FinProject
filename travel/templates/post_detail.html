@@ -86,8 +86,8 @@
     </div>
     {% if post.user == request.user %}
         <div class="actions">
-            <!-- <a href="{% url 'edit_article' post.id %}">編輯文章</a>
-            <a href="{% url 'delete_article' post.id %}">删除文章</a> -->
+            <a href="{% url 'travel:edit_article' post.id %}">編輯文章</a>
+            <a href="{% url 'travel:delete_article' post.id %}">删除文章</a>
         </div>
     {% endif %}
    

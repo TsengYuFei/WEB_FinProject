@@ -109,7 +109,7 @@ def edit_article(request, id):
         form = AddArticleForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('post_detail', id=post.id)
+            return redirect('travel:post_detail', id=post.id)
     else:
         form = AddArticleForm(instance=post)
 
@@ -126,7 +126,7 @@ def delete_article(request,id):
 
     if request.method == 'POST':
         post.delete()
-        return redirect('user_posts')
+        return redirect('travel:user_posts')
     context = {
         'post': post
     }
