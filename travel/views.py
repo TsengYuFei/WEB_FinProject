@@ -47,13 +47,12 @@ def edit_article(request):
     return render(request, 'edit_article.html')
 
 @login_required
-def add_article(request, post_id):
+def add_article(request):
   
     if request.user.is_authenticated:
         if request.method == 'GET':
             
             initial = {
-                'post': post_id,
                 'user': request.user,
                 'created_at': date.today(),
                 'title': '', 
