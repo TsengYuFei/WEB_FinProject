@@ -120,10 +120,17 @@ def add_article(request):
             addarticleForm.save_m2m()
 
             if pictureForm.is_valid():
-            
-                picture = pictureForm.save(commit=False)
-                picture.save()
-                post.pictures.add(picture)
+                
+                files = request.FILES.getlist('picture')
+                if files:
+                    for file in files:
+                        picture = Picture(picture=file)
+                        picture.save()
+                        post.pictures.add(picture)
+
+                # picture = pictureForm.save(commit=False)
+                # picture.save()
+                # post.pictures.add(picture)
             else:
                 context = {
                 'addarticleForm': addarticleForm,

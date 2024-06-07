@@ -63,7 +63,7 @@
     
     <div class="container">
        
-        <form action="." method="POST" enctype="multipart/form-data">
+        <form action="." method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header">
             <img src="{{ request.user.picture.url }}" alt="user profile Picture">
@@ -79,10 +79,9 @@
             <p>{{ addarticleForm.description }} </p>
             <br>
             <label>照片: </label>
-            <input type="file" name="image" multiple>
-            <br>
-            
-            <input type="submit" value="上傳">
+            {{ pictureForm.picture }}
+            <button type="submit">上傳</button>
+            <!-- <input type="submit" value="上傳"> -->
         </form>
 
     </div>
