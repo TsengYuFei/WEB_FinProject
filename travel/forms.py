@@ -25,16 +25,15 @@ class EditUserForm(forms.ModelForm):
         }
 
 class AddArticleForm(forms.ModelForm):
-   
     class Meta:
-        model = Post     # 對應的資料
-        fields = [ 'title','tags','description','pictures']
+        model = Post
+        fields = ['title', 'tags', 'description']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'placeholder': 'Enter tags here, separated by commas', 'class': 'form-control'}),
             'description': forms.Textarea(attrs={'placeholder': 'Enter your description here', 'class': 'form-control'}),
-            # 'pictures':forms.ImageField()
         }
+
 class PictureForm(forms.ModelForm):
     class Meta:
         model = Picture
@@ -42,6 +41,7 @@ class PictureForm(forms.ModelForm):
         widgets = {
             'picture': forms.ClearableFileInput(attrs={'multiple': False}),
         }
+        
 class EditArticleForm(forms.ModelForm):
    
     class Meta:
