@@ -84,7 +84,7 @@ def add_article(request, post_id):
                 'user': user,
                 'created_at': date.today()
             }    
-            return render(request, 'add_result.html', context)
+            return render(request, 'add_artical_result.html', context)
         else:
             return HttpResponseBadRequest()
         
