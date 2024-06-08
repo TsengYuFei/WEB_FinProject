@@ -32,7 +32,7 @@ class Picture(models.Model):
  
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="發文者")
-    title = models.CharField(max_length=10, verbose_name="文章標題")
+    title = models.CharField(max_length=20, verbose_name="文章標題")
     description = models.TextField(verbose_name="文章內容")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="發文時間")
     pictures = models.ManyToManyField(Picture, related_name='posts', verbose_name="內文圖片")
