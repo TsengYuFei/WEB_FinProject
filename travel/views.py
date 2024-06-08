@@ -47,7 +47,7 @@ def add_member(request):
                 bio=form.cleaned_data['bio']
             )
             profile.save()            
-            result = 'Add a new user successfully'
+            result = '註冊成功！'
             return render(request, 'add_member_result.html', {'result': result})
         else:
             # Format the error messages

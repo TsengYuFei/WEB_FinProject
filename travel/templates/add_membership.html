@@ -38,7 +38,7 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        textarea, input[type="text"], input[type="file"], button {
+        textarea, input[type="text"], input[type="password"], input[type="submit"], input[type="email"], .back {
             display: block;
             width: 100%;
             padding: 10px;
@@ -48,14 +48,25 @@
             box-sizing: border-box;
             resize: none; /* 禁止調整大小 */
         }
-        button {
+        input[type="submit"] {
             background-color: #007bff;
             color: #fff;
             border: none;
             cursor: pointer;
         }
-        button:hover {
+        input[type="submit"]:hover {
             background-color: #0056b3;
+        }
+        .back {
+            background-color: #7fbdff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;        
+        }
+        .back:hover {
+            background-color: #4d7bac;
         }
     </style>
 </head>
@@ -69,6 +80,7 @@
             {{ form.as_p }}
             <input type="submit" value="Submit"></input>
         </form>
+        <a href="/" class="back">取消</a>
 
         {% if errors %}
             <div>

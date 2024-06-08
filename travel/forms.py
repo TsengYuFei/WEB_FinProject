@@ -52,7 +52,7 @@ class AddUserForm(UserCreationForm):
         label='Password confirmation',
         widget=forms.PasswordInput,
         strip=False,
-        help_text='請再次輸入密碼以進行確認。',
+        # help_text='請再次輸入密碼以進行確認。',
         error_messages={
             'required': '請確認您的密碼',
         },
@@ -65,11 +65,11 @@ class AddUserForm(UserCreationForm):
         }
     )
     bio = forms.CharField(
-        label='Bio',
+        label='Profile',
         max_length=500,
         widget=forms.Textarea,
         required=False,
-        help_text='請輸入您的個人簡介。'
+        # help_text='請輸入您的個人簡介。'
     )
     # email = forms.EmailField(label='Email', max_length=254)
     # first_name = forms.CharField(label='First Name', max_length=30)
