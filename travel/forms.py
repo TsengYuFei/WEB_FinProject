@@ -45,6 +45,7 @@ class AddUserForm(UserCreationForm):
         widget=forms.PasswordInput,
         error_messages={
             'required': '請輸入密碼',
+            
         },
     )
     password2 = forms.CharField(
@@ -63,6 +64,16 @@ class AddUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+
+    def clean_password2(self):
+        # Override this method to remove password validation
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+
+        return password2
 
 class EditUserForm(forms.ModelForm):
     class Meta:
