@@ -139,5 +139,5 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=20, widget=forms.PasswordInput)
 
 class SearchForm(forms.Form):
-    query = forms.CharField(required=False, label='Search')
+    query = forms.CharField(required=False, label='')
     
