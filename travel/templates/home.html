@@ -13,8 +13,11 @@
     <div class="post-item">
         <h2 class="post-title"><a class="post" href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
         <p class="post-description">{{ post.description|slice:":30" }}...</p>
-        <p class="post-author">作者: {{ post.user.username }}</p>
+        <p class="post-author">作者: <a href="{{ post.user.profile.member_id }}/detail/">{{ post.user.username }}</a></p>
+        
         <p class="post-date">發文時間: {{ post.created_at }}</p>
+        
+        <!--<p class="post-date">發文者memberid: {{ post.user.profile.member_id }}</p>-->
     </div>
     {% endfor %}
 </div>
