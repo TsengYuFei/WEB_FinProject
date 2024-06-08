@@ -1,23 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
-</head>
-<body>
+{% extends "Mama.html" %}
+{% load static %}
+{% block title %}旅遊經驗分享平台{% endblock %}
+
+{% block CSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+<div class="post-list">
     <h1>Search Results</h1>
     <form method="get" action="{% url 'travel:search_posts' %}">
         {{ form.as_p }}
         <button type="submit">Search</button>
     </form>
-    <ul>
+    {% for post in posts %}
+    <div class="post-item">
+        <h2 class="post-title"><a class="post" href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
+        <p class="post-description">{{ post.description|slice:":30" }}...</p>
+        <p class="post-author">作者: {{ post.user.username }}</p>
+        <p class="post-date">發文時間: {{ post.created_at }}</p>
+    </div>
+    {% endfor %}
+    <!-- <ul>
         {% for post in posts %}
             <li>
                 {{ post.title }} - {{ post.description }}
                 <br>
             </li>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </ul> -->
+</div>
+
+{% endblock %}
