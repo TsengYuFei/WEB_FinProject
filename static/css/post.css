@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    width: 900px;  /* 增大容器宽度 */
+    width: 90%;  /* 增大容器宽度 */
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
