@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刪除文章</title>
+{% extends 'Mama.html' %}
+
+{% block CSS %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,8 +34,10 @@
             background-color: #c82333;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block title %}刪除文章__{{ post.title }}{% endblock %}
+{% block content %}
     <div class="container">
         <h1>刪除文章</h1>
         <p>你確定要刪除這篇文章嗎？</p>
@@ -47,5 +46,4 @@
             <button type="submit">刪除</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

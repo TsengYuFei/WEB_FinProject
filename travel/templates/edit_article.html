@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>編輯文章</title>
+{% extends 'Mama.html' %}
+
+{% block CSS %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,8 +39,10 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block title %}{{ post.title }}__編輯{% endblock %}
+{% block content %}
     <div class="container">
         <h1>編輯文章</h1>
         <form action="." method="POST">
@@ -52,5 +51,4 @@
             <button type="submit">保存修改</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

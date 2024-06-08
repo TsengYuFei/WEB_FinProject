@@ -15,32 +15,35 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
     }
     .post-header {
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .post-header img {
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         margin-right: 10px;
     }
-    .post-title {
-        font-size: 1.5em;
-        font-weight: bold;
-        margin: 0;
+    .post-header .post-info {
+        display: flex;
+        flex-direction: column;
     }
     .post-author {
         font-size: 0.9em;
         color: #555;
-        margin-top: 5px;
     }
     .post-date {
-        font-size: 0.9em;
+        font-size: 0.8em;
         color: #777;
-        margin-top: 5px;
+    }
+    .post-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 10px 0;
     }
     .post-content {
         font-size: 1em;
@@ -62,6 +65,21 @@
         max-width: calc(50% - 10px);
         border-radius: 8px;
     }
+    .actions {
+        text-align: right;
+    }
+    .actions a {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .actions a:hover {
+        background-color: #0056b3;
+    }
 </style>
 {% endblock %}
 
@@ -70,18 +88,19 @@
 {% block content %}
 <div class="container">
     <div class="post-header">
-        <img src="{{ post.user.profile_pictures.picture }}" alt="Author's profile picture">
-        <div class="post-author">{{ post.user.username }}</div>
-        <div>
-            <div class="post-title">{{ post.title }}</div>
+        <img src="{{ post.user.profile.picture.url }}" alt="Author's profile picture">
+        <div class="post-info">
+            <div class="post-author">{{ post.user.username }}</div>
             <div class="post-date">Posted on {{ post.created_at|date:"Y-m-d H:i" }}</div>
         </div>
     </div>
     
+    <div class="post-title">{{ post.title }}</div>
+    
     <div class="post-content">{{ post.description }}</div>
     <div class="post-photos">
         {% for picture in post.pictures.all %}
-            <img src="{{ picture.Post_photos.picture }}" class="post-photo" alt="Post_photo">
+            <img src="{{ picture.picture.url }}" class="post-photo" alt="Post_photo">
         {% endfor %}
     </div>
     {% if post.user == request.user %}
@@ -90,7 +109,5 @@
             <a href="{% url 'travel:delete_article' post.id %}">删除文章</a>
         </div>
     {% endif %}
-   
-
 </div>
 {% endblock %}
