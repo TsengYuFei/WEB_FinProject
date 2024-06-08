@@ -9,7 +9,11 @@
 {% block content %}
 <div class="container">
     <div class="post-header">
-        <img src="{{ post.user.profile.picture.url }}" alt="Author's profile picture">
+        {% if user.picture %}
+            <img class="head" src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
+        {% else %}
+            <img class="head" src="../../static/picture/defult_head.png" alt="Author's profile picture"><br><br>
+        {% endif %}
         <div class="post-info">
             <div class="post-author">{{ post.user.username }}</div>
             <div class="post-date">Posted on {{ post.created_at|date:"Y-m-d H:i" }}</div>
