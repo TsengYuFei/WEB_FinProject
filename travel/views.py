@@ -211,7 +211,10 @@ def login(request):
                            'message': 'login ok'}
                 return HttpResponse(home_page.render(context, request))
             else:
-                message = 'Login failed (auth fail)'
+                login_form.add_error(None, '輸入的帳號或密碼錯誤')
+                context = {'login_form': login_form}
+                return render(request, 'login.html', context)
+                # message = 'Login failed (auth fail)'
         else:                    
             print ('Login error (login form is not valid)')
     else:

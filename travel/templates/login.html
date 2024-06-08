@@ -89,9 +89,13 @@
                 <input type="submit" value="Login">
             </form>
             <a href="/" class="back">取消</a>
+            {% if login_form.errors %}
+                <p>輸入的帳號或密碼錯誤</p>
+            {% endif %}            
             <br>
             <div class="link">還沒有帳號?  <a href="/add_membership">立即註冊會員</a></div>
-        {% endif %}        
+
+        {% endif %}  
     </div>
 
 </body>
