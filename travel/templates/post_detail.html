@@ -9,8 +9,8 @@
 {% block content %}
 <div class="container">
     <div class="post-header">
-        {% if user.picture %}
-            <img class="head" src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
+        {% if post.user.profile.picture %}
+            <img class="head" src="{{ post.user.profile.picture.url }}" alt="{{ post.user.username }}的頭貼"><br><br>
         {% else %}
             <img class="head" src="../../static/picture/defult_head.png" alt="Author's profile picture"><br><br>
         {% endif %}
