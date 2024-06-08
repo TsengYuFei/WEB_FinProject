@@ -74,6 +74,16 @@ class AddUserForm(UserCreationForm):
             raise forms.ValidationError("Passwords don't match")
 
         return password2
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        if commit:
+            user.save()
+            UserProfile.objects.create(user=user)  # 创建 UserProfile 实例
+        return user
 
 class EditUserForm(forms.ModelForm):
     class Meta:
