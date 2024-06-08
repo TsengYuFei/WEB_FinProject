@@ -28,20 +28,23 @@ def home(request):
 
 def add_member(request):
     if request.method == 'GET':
-        new_user = loader.get_template('add_membership.html')
-        context = {'form': AddUserForm()}
-        return HttpResponse(new_user.render(context, request))
+        form = AddUserForm()
+        return render(request, 'add_membership.html', {'form': form})
+
     elif request.method == 'POST':
-        new_user_form = AddUserForm(request.POST)
-        print('new_user_form: ', new_user_form)
-        if new_user_form.is_valid():
-            print('new_user_form is valid')
-            new_user_form.save()
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            form.save()
             result = 'Add a new user successfully'
+            return render(request, 'add_member_result.html', {'result': result})
         else:
-            result = new_user_form.errors.as_data()
-        new_user_result = loader.get_template('add_member_result.html') #test
-        return HttpResponse(new_user_result.render({'result':result}, request))
+            # Format the error messages
+            errors = []
+            for field, error_list in form.errors.items():
+                for error in error_list:
+                    errors.append(error)
+            return render(request, 'add_membership.html', {'form': form, 'errors': errors})
+
 
 def add_article(request):
     if request.method == 'GET':
