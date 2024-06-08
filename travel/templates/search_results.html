@@ -4,14 +4,56 @@
 
 {% block CSS %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <style>
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        } 
+        .fo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            vertical-align:middle
+        }
+        textarea, input[type="text"], input[type="file"], button {
+            display: block;
+            /* width: 100%; */
+            padding: 10px;
+            margin: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            height: 50%;
+            vertical-align:middle;
+            border: none;
+            cursor: pointer; 
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* .search-button {
+            display: inline-block;
+            vertical-align: top; 可选：调整按钮的垂直对齐方式
+        } */
+    </style>
 {% endblock %}
 {% block content %}
 <div class="post-list">
-    <h1>Search Results</h1>
-    <form method="get" action="{% url 'travel:search_posts' %}">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-    </form>
+
+    <div class="search-form">
+        <h1>搜尋</h1>
+        <form method="get" action="{% url 'travel:search_posts' %}" class="fo">
+            {{ form.as_p }}
+            <button class="search-button" type="submit">Search</button>
+        </form>        
+    </div>
+
     {% for post in posts %}
     <div class="post-item">
         <h2 class="post-title"><a class="post" href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
