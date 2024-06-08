@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    width: 90%;  /* 增大容器宽度 */
+    width: 900px;  /* 增大容器宽度 */
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
@@ -56,7 +56,8 @@ body {
 }
 
 .post-photo {
-    max-width: 100%;
+    width: 100%;
+    max-height: 300px;
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -77,16 +78,26 @@ body {
     text-align: right;
 }
 
+
 .actions a {
     display: inline-block;
     padding: 10px 15px;
     margin: 5px;
     background-color: #007bff;
+    text-decoration: none;
     color: #fff;
     border-radius: 5px;
-    text-decoration: none;
 }
 
 .actions a:hover {
     background-color: #0056b3;
+}
+
+.post-author a {
+    text-decoration: none; /* 去掉所有链接的底线 */
+    color: #000000; /* 设置链接颜色 */
+}
+
+.post-author a:hover {
+    color: #009a82; /* 悬停时改变颜色 */
 }

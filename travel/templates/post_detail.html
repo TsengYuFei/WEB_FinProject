@@ -15,7 +15,8 @@
             <img class="head" src="../../static/picture/defult_head.png" alt="Author's profile picture"><br><br>
         {% endif %}
         <div class="post-info">
-            <div class="post-author">{{ post.user.username }}</div>
+            
+            <div class="post-author"><a  href="/{{ post.user.profile.member_id }}/detail">{{ post.user.username }}</a></div>
             <div class="post-date">Posted on {{ post.created_at|date:"Y-m-d H:i" }}</div>
         </div>
     </div>
