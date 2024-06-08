@@ -162,7 +162,7 @@ def personal(request, member_id):
       'posts': posts,
       'user': member_profile,
     }
-    return render(request, 'detail.html', context)
+    return render(request, 'personal.html', context)
 
 def update_detail(request, member_id):
     member_profile = get_object_or_404(UserProfile, member_id=member_id)
