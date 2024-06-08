@@ -34,7 +34,19 @@ def add_member(request):
     elif request.method == 'POST':
         form = AddUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            # form.save()
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['email']
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+
+            profile = UserProfile(
+                user=user,
+                picture=form.cleaned_data['picture'],
+                bio=form.cleaned_data['bio']
+            )
+            profile.save()            
             result = 'Add a new user successfully'
             return render(request, 'add_member_result.html', {'result': result})
         else:
