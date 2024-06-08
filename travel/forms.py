@@ -57,13 +57,27 @@ class AddUserForm(UserCreationForm):
             'required': '請確認您的密碼',
         },
     )
+    picture = forms.ImageField(
+        label='Profile Picture',
+        required=False,
+        error_messages={
+            'invalid': '請上傳有效的圖片文件'
+        }
+    )
+    bio = forms.CharField(
+        label='Bio',
+        max_length=500,
+        widget=forms.Textarea,
+        required=False,
+        help_text='請輸入您的個人簡介。'
+    )
     # email = forms.EmailField(label='Email', max_length=254)
     # first_name = forms.CharField(label='First Name', max_length=30)
     # last_name = forms.CharField(label='Last Name', max_length=30)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'picture', 'bio')
 
     def clean_password2(self):
         # Override this method to remove password validation
