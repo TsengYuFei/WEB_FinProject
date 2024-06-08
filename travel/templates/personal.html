@@ -11,7 +11,11 @@
     <div class="row">
         <div class="about">
             <h1>{{ user.user.username }}</h1>
-            <img class="head" src={{user.picture.url}} alt="{{ user.user.username }}的頭貼"><br><br>
+            {% if user.picture %}
+                <img class="head" src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
+            {% else %}
+                <img class="head" src="../../static/picture/defult_head.png" alt="預設頭貼"><br><br>
+            {% endif %}
             <p><b>Name</b>&ensp;&ensp;{{ user.user.first_name }} {{ user.user.last_name }}</p>
             <p><b>Email</b>&ensp;&ensp;{{ user.user.email }}</p>
             <b>Profile</b>
