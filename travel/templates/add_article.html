@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增文章</title>
+{% extends 'Mama.html' %}
+{% load static %}
+{% block CSS %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,9 +55,11 @@
             background-color: #0056b3;
         }
     </style>
-</head>
-<body>
-    
+{% endblock %}
+
+{% block title %}新增文章{% endblock %}
+
+{% block content %} 
     <div class="container">
        
         <form action="." method="POST"  enctype="multipart/form-data">
@@ -82,7 +81,4 @@
         </form>
 
     </div>
-
-    
-</body>
-</html>
+{% endblock %}
