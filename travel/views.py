@@ -14,6 +14,13 @@ from django.template import loader
 from django.contrib import auth
 from django.shortcuts import render
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib import messages
+
+
+
+
 from .forms import LoginForm, SearchForm
 
 from django.db.models import Q
@@ -206,10 +213,11 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                home_page = loader.get_template('home.html') ##登入後導到home.html
-                context = {'user': request.user,
-                           'message': 'login ok'}
-                return HttpResponse(home_page.render(context, request))
+                #home_page = loader.get_template('travel:home') ##登入後導到home.html
+                # context = {'user': request.user,
+                #            'message': 'login ok'}
+                # return HttpResponse(home_page.render(context, request))
+                return redirect('travel:home')
             else:
                 login_form.add_error(None, '輸入的帳號或密碼錯誤')
                 context = {'login_form': login_form}
@@ -220,12 +228,26 @@ def login(request):
     else:
         print ('Error on request (not GET/POST)')
 
+# def login(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             auth_login(request, user)
+#             return redirect('travel:home')  # Redirect to home page after successful login
+#         else:
+#             login_form = LoginForm(request.POST)
+#             messages.error(request, 'Invalid username or password')
+#             login_form.add_error(None, '輸入的帳號或密碼錯誤')
+#     return render(request, 'login.html', {'login_form': LoginForm()})
 
 def logout(request):
-    auth.logout(request)
-    main_html = loader.get_template('home.html')
-    context = {'user': request.user}
-    return HttpResponse(main_html.render(context, request))
+    auth_logout(request)
+    #main_html = loader.get_template('home.html')
+    #context = {'user': request.user}
+    return redirect('travel:home')
+#   return HttpResponse(main_html.render(context, request))
 
 def search_posts(request):
     form = SearchForm(request.GET or None)
