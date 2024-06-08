@@ -26,6 +26,7 @@ body {
     width: 90px;
     height: 90px;
     margin-right: 10px;
+    object-fit: cover; /* 确保图片不会变形 */
 }
 
 .post-header .post-info {
@@ -56,10 +57,10 @@ body {
 }
 
 .post-photo {
-    width: 100%;
-    max-height: 300px;
+    max-width: 100%;
     border-radius: 8px;
     margin-bottom: 10px;
+    object-fit: cover; /* 确保图片不会变形 */
 }
 
 .post-photos {
@@ -70,7 +71,7 @@ body {
 
 .post-photos img {
     flex: 1;
-    max-width: calc(75% - 10px);
+    max-width: calc(50% - 10px);
     border-radius: 8px;
 }
 
