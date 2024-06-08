@@ -1,0 +1,92 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e5f5fd;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 900px;  /* 增大容器宽度 */
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-header img {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    margin-right: 10px;
+}
+
+.post-header .post-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author{
+    font-size: 21px;
+    color: #272424;
+}
+.post-date {
+    font-size: 18px;
+    color: #555;
+}
+.post-title {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 0 5px 0 15px ;
+}
+
+.post-content {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.post-photo {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.post-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.post-photos img {
+    flex: 1;
+    max-width: calc(75% - 10px);
+    border-radius: 8px;
+}
+
+.actions {
+    text-align: right;
+}
+
+.actions a {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.actions a:hover {
+    background-color: #0056b3;
+}
