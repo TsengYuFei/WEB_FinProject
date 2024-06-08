@@ -32,7 +32,7 @@ def add_member(request):
         return render(request, 'add_membership.html', {'form': form})
 
     elif request.method == 'POST':
-        form = AddUserForm(request.POST)
+        form = AddUserForm(request.POST, request.FILES)
         if form.is_valid():
             # form.save()
             user = form.save(commit=False)
