@@ -36,7 +36,6 @@ class Post(models.Model):
     description = models.TextField(verbose_name="文章內容")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="發文時間")
     pictures = models.ManyToManyField(Picture, related_name='posts', verbose_name="內文圖片")
-
-
+    
     def __str__(self):
         return self.title
