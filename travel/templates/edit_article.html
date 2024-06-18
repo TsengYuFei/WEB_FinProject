@@ -1,17 +1,15 @@
 {% extends 'Mama.html' %}
 
 {% block CSS %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
-            /* font-size: 20px; */
-            margin: 0;
-            padding: 0;
             background-color: #e5f5fd;
         }
-        .container {
-            width: 50%;
-            margin: 0 auto;
+        .container-custom {
+            max-width: 50%;
+            margin: 20px auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -21,53 +19,40 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        textarea, input[type="text"], input[type="file"], button {
-            display: block;
-            max-width: 100%;
-            width: 870px;
-            
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            /* font-size: 20px; */
-        }
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+        .image-preview {
+            max-width: 200px;
+            margin-bottom: 10px;
         }
     </style>
 {% endblock %}
 
 {% block title %}{{ post.title }}__編輯{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>編輯文章</h1>
+    <div class="container container-custom">
+        <h1 class="h3">編輯文章</h1>
         <form action="." method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">保存修改</button>
+            <button type="submit" class="btn btn-primary w-100">保存修改</button>
         </form>
+        <br>
         {% if post.pictures.all %}
-            <h2>已上傳的圖片</h2>
+            <h2 class="h4">已上傳的圖片</h2>
             <form action="{% url 'travel:delete_picture' %}" method="post">
-            {% csrf_token %}
-            {% for picture in post.pictures.all %}
-                <div>
-                    <img src="{{ picture.picture.url }}" alt="Post photo" style="max-width: 200px;">
-                        <input type="checkbox" name="delete_pictures" value="{{ picture.id }}"> 刪除
+                {% csrf_token %}
+                <div class="form-group">
+                    {% for picture in post.pictures.all %}
+                        <div class="mb-2">
+                            <img src="{{ picture.picture.url }}" alt="Post photo" class="image-preview img-thumbnail">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="delete_pictures" value="{{ picture.id }}">
+                                <label class="form-check-label">刪除</label>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-            
-            <button type="submit">刪除選擇的圖片</button>
+                <button type="submit" class="btn btn-danger w-100">刪除選擇的圖片</button>
+            </form>
         {% endif %}
-            
-        </form>
     </div>
 {% endblock %}

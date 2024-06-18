@@ -1,6 +1,7 @@
 {% extends 'Mama.html' %}
 {% load static %}
 {% block CSS %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -8,7 +9,7 @@
             padding: 0;
             background-color: #e5f5fd;
         }
-        .container {
+        .container-custom {
             width: 90%;
             margin: 0 auto;
             background-color: #fff;
@@ -35,54 +36,32 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        textarea, input[type="text"], input[type="file"], button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            resize: none; /* 禁止調整大小 */
-        }
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
     </style>
 {% endblock %}
 
 {% block title %}新增文章{% endblock %}
 
-{% block content %}
-    <div class="container">
+{% block content %} 
+    <div class="container container-custom">
         <form action="." method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header">
-                {% if request.user.profile.picture %}
-                    <img class="head" src="{{ request.user.profile.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
-                {% else %}
-                    <img class="head" src="../../static/picture/defult_head.png" alt="預設頭貼"><br><br>
-                {% endif %}
+                <img src="{{ request.user.profile.picture.url }}" alt="大頭">
                 <h2>{{ request.user.username }}</h2>
             </div>
-            <label for="id_title">標題:</label>
-            <p>{{ addarticleForm.title }}</p>
-            <br>
-            <label for="id_description">內文:</label>
-            <p>{{ addarticleForm.description }}<p>
-            <br>
-            <label for="id_tag">標籤:</label>
-            {{ addarticleForm.tags }}
-            <br>
-            <label for="id_pictures">照片:</label>
-            {{ addarticleForm.pictures }}
-            <button type="submit">上傳</button>
+            <div class="form-group">
+                <label for="title">標題:</label>
+                <p>{{ addarticleForm.title }}</p> 
+            </div>
+            <div class="form-group">
+                <label for="description">內文:</label>
+                <p>{{ addarticleForm.description }}</p>
+            </div>
+            <div class="form-group">
+                <label for="pictures">照片:</label>
+                {{ addarticleForm.pictures }}
+            </div>
+            <button type="submit" class="btn btn-primary">上傳</button>
         </form>
     </div>
 {% endblock %}

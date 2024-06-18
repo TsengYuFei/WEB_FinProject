@@ -1,49 +1,35 @@
 {% extends 'Mama.html' %}
 
 {% block CSS %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #e5f5fd;
         }
-        .container {
+        .container-custom {
             width: 50%;
-            margin: 0 auto;
+            margin: 20px auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1,p {
+        h1, p {
             text-align: center;
             margin-bottom: 20px;
-        }
-        button {
-            background-color: #dc3545;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #c82333;
         }
     </style>
 {% endblock %}
 
 {% block title %}刪除文章__{{ post.title }}{% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container container-custom">
         <h1>刪除文章</h1>
         <p>你確定要刪除這篇文章嗎？</p>
         <form action="." method="POST">
             {% csrf_token %}
-            <button type="submit">刪除</button>
+            <button type="submit" class="btn btn-danger w-100">刪除</button>
         </form>
     </div>
 {% endblock %}
