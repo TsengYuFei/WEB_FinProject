@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,HttpResponseForbidden
 from .models import UserProfile, Post,Picture
 from django.template import loader
-from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
+from travel.forms import AddUserForm, EditUserForm,AddArticleForm
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.urls import reverse
@@ -68,69 +68,59 @@ def add_member(request):
 def add_article(request):
     if request.method == 'GET':
         addarticleForm = AddArticleForm()
-        pictureForm = PictureForm()
         context = {
             'addarticleForm': addarticleForm,
-            'pictureForm': pictureForm
         }
         return render(request, 'add_article.html', context)
 
     elif request.method == 'POST':
-        addarticleForm = AddArticleForm(request.POST)
-        pictureForm = PictureForm(request.POST, request.FILES)
+        addarticleForm = AddArticleForm(request.POST, request.FILES)
 
-        if addarticleForm.is_valid() :
+        if addarticleForm.is_valid():
             post = addarticleForm.save(commit=False)
             post.user = request.user
             post.save()
-            addarticleForm.save_m2m()
 
-            if pictureForm.is_valid():
+            # Handle file uploads
+            if request.FILES.getlist('pictures'):
+                for picture in request.FILES.getlist('pictures'):
+                    print("Picture content:", picture)
+                    picture_instance = Picture.objects.create(picture=picture)
+                    post.pictures.add(picture_instance)
 
-                files = request.FILES.getlist('picture')
-                if files:
-                    for file in files:
-                        picture = Picture(picture=file)
-                        picture.save()
-                        post.pictures.add(picture)
-
-                # picture = pictureForm.save(commit=False)
-                # picture.save()
-                # post.pictures.add(picture)
-            else:
-                context = {
+            # addarticleForm.save_m2m()
+            context = {
                 'addarticleForm': addarticleForm,
-                'pictureForm': pictureForm,
-                'result': 'Photo Add fail',
+                'result': '文章新增成功',
                 'created_at': date.today()
-                }
-                return render(request, 'add_article_result.html', context)
-            
-            # return redirect('post_detail', post_id=post.id)
-
+            }
+            member_id = request.user.profile.member_id
+            return redirect(reverse('travel:personal', args=[member_id]))
+            # return render(request, 'add_article_result.html', context)
         else:
             context = {
                 'addarticleForm': addarticleForm,
-                'pictureForm': pictureForm,
                 'result': 'Add fail',
                 'created_at': date.today()
             }
-        context = {
-            'addarticleForm': addarticleForm,
-            'pictureForm' : pictureForm,
-            'result': '文章新增成功', 
-            'created_at': date.today()
-        }    
-        return render(request, 'add_article_result.html', context)
+            return render(request, 'add_article_result.html', context)
+
     else:
         return HttpResponseBadRequest()
+    
 def edit_article(request, id):
     post = get_object_or_404(Post, id=id, user=request.user)
 
     if request.method == 'POST':
-        form = AddArticleForm(request.POST, instance=post)
+        form = AddArticleForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            if request.FILES.getlist('pictures'):
+                for picture in request.FILES.getlist('pictures'):
+                    print("Picture content:", picture)
+                    picture_instance = Picture.objects.create(picture=picture)
+                    post.pictures.add(picture_instance)
+            post.save()
             return redirect('travel:post_detail', id=post.id)
     else:
         form = AddArticleForm(instance=post)
@@ -140,6 +130,13 @@ def edit_article(request, id):
         'post': post
     }
     return render(request, 'edit_article.html', context)
+
+def delete_picture(request):
+    if request.method == 'POST':
+        picture_ids = request.POST.getlist('delete_pictures')
+        if picture_ids:
+            Picture.objects.filter(id__in=picture_ids).delete()
+        return redirect(request.META.get('HTTP_REFERER'))
 
 def delete_article(request,id):        
     post = get_object_or_404(Post, id= id, user=request.user)

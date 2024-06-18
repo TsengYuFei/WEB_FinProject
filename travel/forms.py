@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ClearableFileInput, FileField 
+
 from .models import User, UserProfile,Post,Picture
 from django.contrib.auth.forms import UserCreationForm
 
@@ -6,7 +8,7 @@ from django.contrib.auth.password_validation import validate_password, UserAttri
 from django.core.exceptions import ValidationError
 
 from django.contrib.auth.models import User
-
+from .widgets import MultipleFileInput  # 导入自定义的小部件
 
 class AddUserForm(UserCreationForm):
     username = forms.CharField(
@@ -112,28 +114,32 @@ class EditUserForm(forms.ModelForm):
         }
 
 class AddArticleForm(forms.ModelForm):
+    pictures = forms.FileField(widget=MultipleFileInput(attrs={'multiple': True}), required=False)
+
     class Meta:
         model = Post
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'pictures']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'placeholder': 'Enter your description here', 'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Enter description here', 'class': 'form-control'}),
         }
 
-class PictureForm(forms.ModelForm):
-    class Meta:
-        model = Picture
-        fields = ['picture']
-        widgets = {
-            'picture': forms.ClearableFileInput(attrs={'multiple': False}),
-        }
-        
+    def save(self, commit=True):
+        instance = super(AddArticleForm, self).save(commit=False)
+        if commit:
+            instance.save()
+            if self.cleaned_data.get('pictures'):
+                for picture in self.cleaned_data['pictures']:
+                    picture_instance = Picture.objects.create(picture=picture)
+                    instance.pictures.add(picture_instance)
+        return instance
+     
 class EditArticleForm(forms.ModelForm):
    
     class Meta:
         model = Post     # 對應的資料
         fields = ['title','description']
-
+   
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
     password = forms.CharField(max_length=20, widget=forms.PasswordInput)
@@ -141,3 +147,6 @@ class LoginForm(forms.Form):
 class SearchForm(forms.Form):
     query = forms.CharField(required=False, label='')
     
+class MultipleFileInput(ClearableFileInput):
+    allow_multiple_selected = True
+

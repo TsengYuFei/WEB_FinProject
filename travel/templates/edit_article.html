@@ -49,10 +49,21 @@
 {% block content %}
     <div class="container">
         <h1>編輯文章</h1>
-        <form action="." method="POST">
+        <form action="." method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">保存修改</button>
+        </form>
+        <h2>已上傳的圖片</h2>
+        <form action="{% url 'travel:delete_picture' %}" method="post">
+            {% csrf_token %}
+            {% for picture in post.pictures.all %}
+                <div>
+                    <img src="{{ picture.picture.url }}" alt="Post photo" style="max-width: 200px;">
+                    <input type="checkbox" name="delete_pictures" value="{{ picture.id }}"> 刪除
+                </div>
+            {% endfor %}
+            <button type="submit">刪除選擇的圖片</button>
         </form>
     </div>
 {% endblock %}

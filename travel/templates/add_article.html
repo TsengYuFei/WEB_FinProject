@@ -59,26 +59,23 @@
 
 {% block title %}新增文章{% endblock %}
 
-{% block content %} 
+{% block content %}
     <div class="container">
-       
-        <form action="." method="POST"  enctype="multipart/form-data">
+        <form action="." method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header">
-            <img src="{{ request.user.profile.picture.url }}" alt="大頭">
-            <h2>{{ request.user.username }}</h2>
+                <img src="{{ request.user.profile.picture.url }}" alt="大頭">
+                <h2>{{ request.user.username }}</h2>
             </div>
-            <label>標題: </label>
-            <p>{{ addarticleForm.title }}</p> 
+            <label for="id_title">標題:</label>
+            {{ addarticleForm.title }}
             <br>
-            <label>內文: </label>
-            <p>{{ addarticleForm.description }} </p>
+            <label for="id_description">內文:</label>
+            {{ addarticleForm.description }}
             <br>
-            <label>照片: </label>
-            {{ pictureForm.picture }}
+            <label for="id_pictures">照片:</label>
+            {{ addarticleForm.pictures }}
             <button type="submit">上傳</button>
-            <!-- <input type="submit" value="上傳"> -->
         </form>
-
     </div>
 {% endblock %}
