@@ -28,7 +28,7 @@ class UserProfile(models.Model):
     #user: 與 Django 的 User 模型形成一對一關係。
 
 class Picture(models.Model):
-    picture = models.ImageField(upload_to='pictures/')
+    picture = models.ImageField(upload_to='Post_photos/')
     
     def __str__(self):
         return f"Picture {self.id}"

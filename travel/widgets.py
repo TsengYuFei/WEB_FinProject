@@ -12,5 +12,5 @@ class MultipleFileInput(ClearableFileInput):
         if value is None or isinstance(value, str):
             return value
         if isinstance(value, list):
-            return [super().format_value(v) for v in value]
-        return super().format_value(value)
+            return [super(MultipleFileInput, self).format_value(v) for v in value]
+        return super(MultipleFileInput, self).format_value(value)
