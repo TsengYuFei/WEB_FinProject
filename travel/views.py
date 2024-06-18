@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,HttpResponseForbidden
-from .models import UserProfile, Post,Picture
+from .models import UserProfile, Post,Picture, Tag
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticleForm
 from django.contrib.auth.decorators import login_required
@@ -64,6 +64,12 @@ def add_member(request):
                     errors.append(error)
             return render(request, 'add_membership.html', {'form': form, 'errors': errors})
 
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponseBadRequest
+from datetime import date
+from .forms import AddArticleForm, PictureForm
+from .models import Post, Picture, Tag
 
 def add_article(request):
     if request.method == 'GET':

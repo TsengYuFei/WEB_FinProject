@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ClearableFileInput, FileField 
 
-from .models import User, UserProfile,Post,Picture
+from .models import User, UserProfile,Post,Picture, Tag
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.password_validation import validate_password, UserAttributeSimilarityValidator, MinimumLengthValidator, CommonPasswordValidator, NumericPasswordValidator
@@ -116,9 +116,15 @@ class EditUserForm(forms.ModelForm):
 class AddArticleForm(forms.ModelForm):
     pictures = forms.FileField(widget=MultipleFileInput(attrs={'multiple': True}), required=False)
 
+    tags = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas', 'class': 'form-control'}),
+        required=False,
+        label="標籤"
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'description', 'pictures']
+        fields = ['title', 'description', 'pictures', 'tags']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
             'description': forms.Textarea(attrs={'placeholder': 'Enter description here', 'class': 'form-control'}),
