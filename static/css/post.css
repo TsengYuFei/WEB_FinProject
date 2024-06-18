@@ -6,7 +6,9 @@ body {
 }
 
 .container {
-    width: 900px;  /* 增大容器宽度 */
+    width: 80%;
+
+    /*width: 900px;   增加這box的寬度 0618註解掉*/
     margin: 20px auto;
     background-color: #fff;
     padding: 0;
@@ -26,7 +28,7 @@ body {
     width: 90px;
     height: 90px;
     margin-right: 10px;
-    object-fit: cover; /* 确保图片不会变形 */
+    object-fit: cover; /* 確保不會變形 */
 }
 
 .post-header .post-info {
@@ -60,7 +62,7 @@ body {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 10px;
-    object-fit: cover; /* 确保图片不会变形 */
+    object-fit: cover; /* 確保圖片不會變形 */
 }
 
 .post-photos {
@@ -95,10 +97,10 @@ body {
 }
 
 .post-author a {
-    text-decoration: none; /* 去掉所有链接的底线 */
-    color: #000000; /* 设置链接颜色 */
+    text-decoration: none; /* 去掉所有鏈接的底線 */
+    color: #000000; /* 設置鏈接顏色 */
 }
 
 .post-author a:hover {
-    color: #009a82; /* 悬停时改变颜色 */
+    color: #009a82; /* 懸停時改變顏色 */
 }

@@ -10,6 +10,7 @@ body {
 .row {
     display: flex;
     min-height: 100vh;
+    flex-wrap: wrap;/*多改的*/
 }
 
 .about {
@@ -67,3 +68,20 @@ body {
     width: 65px;
     height: auto;
 }
+
+
+
+/*多加的*/
+@media screen and (max-width: 850px) {
+    .about, .article {
+        width: 100%;
+        float: none; /* 清除浮動以避免影響響應式 */
+        padding: 10px;
+    }
+    .about {
+        height: 50vh;
+    }
+}
+/*多加的*/
+
+  
