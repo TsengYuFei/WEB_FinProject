@@ -64,13 +64,6 @@ def add_member(request):
                     errors.append(error)
             return render(request, 'add_membership.html', {'form': form, 'errors': errors})
 
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponseBadRequest
-from datetime import date
-from .forms import AddArticleForm, PictureForm
-from .models import Post, Picture, Tag
-
 def add_article(request):
     if request.method == 'GET':
         addarticleForm = AddArticleForm()
