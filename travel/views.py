@@ -144,6 +144,7 @@ def delete_article(request,id):
 
     if request.method == 'POST':
         member_id = post.user.profile.member_id
+        
         post.delete()
         return redirect(reverse('travel:personal', args=[member_id]))
     context = {
