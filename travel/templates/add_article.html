@@ -64,7 +64,11 @@
         <form action="." method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="header">
-                <img src="{{ request.user.profile.picture.url }}" alt="大頭">
+                {% if user.picture %}
+                    <img class="head" src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
+                {% else %}
+                    <img class="head" src="../../static/picture/defult_head.png" alt="預設頭貼"><br><br>
+                {% endif %}
                 <h2>{{ request.user.username }}</h2>
             </div>
             <label for="id_title">標題:</label>
@@ -72,6 +76,9 @@
             <br>
             <label for="id_description">內文:</label>
             <p>{{ addarticleForm.description }}<p>
+            <br>
+            <label for="id_tag">標籤:</label>
+            {{ addarticleForm.tags }}
             <br>
             <label for="id_pictures">照片:</label>
             {{ addarticleForm.pictures }}
