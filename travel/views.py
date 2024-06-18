@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect,HttpResponseBadRequest,HttpResponseForbidden
-from .models import UserProfile, Post,Picture
+from .models import UserProfile, Post,Picture, Tag
 from django.template import loader
 from travel.forms import AddUserForm, EditUserForm,AddArticleForm,PictureForm
 from django.contrib.auth.decorators import login_required
@@ -65,6 +65,12 @@ def add_member(request):
             return render(request, 'add_membership.html', {'form': form, 'errors': errors})
 
 
+from django.shortcuts import render, redirect
+from django.http import HttpResponseBadRequest
+from datetime import date
+from .forms import AddArticleForm, PictureForm
+from .models import Post, Picture, Tag
+
 def add_article(request):
     if request.method == 'GET':
         addarticleForm = AddArticleForm()
@@ -76,37 +82,41 @@ def add_article(request):
         return render(request, 'add_article.html', context)
 
     elif request.method == 'POST':
+
+        user = request.POST.get('user', '')
+        
+        user, created = UserProfile.objects.get_or_create(user=user)
+
+        post = Post(title='文章標題', user=user)
+        post.save()
+
         addarticleForm = AddArticleForm(request.POST)
         pictureForm = PictureForm(request.POST, request.FILES)
 
-        if addarticleForm.is_valid() :
+        if addarticleForm.is_valid():
             post = addarticleForm.save(commit=False)
             post.user = request.user
             post.save()
             addarticleForm.save_m2m()
+            
+            tags_input = request.POST.get('tags', '')
+            tags_list = [tag.strip() for tag in tags_input.split(',') if tag.strip()]
+            
+            for tag_name in tags_list:
+                tag, created = Tag.objects.get_or_create(name=tag_name)
+                post.tags.add(tag)
 
             if pictureForm.is_valid():
-
                 files = request.FILES.getlist('picture')
-                if files:
-                    for file in files:
-                        picture = Picture(picture=file)
-                        picture.save()
-                        post.pictures.add(picture)
+                for file in files:
+                    picture = Picture(picture=file, post=post)
+                    picture.save()
 
-                # picture = pictureForm.save(commit=False)
-                # picture.save()
-                # post.pictures.add(picture)
-            else:
-                context = {
-                'addarticleForm': addarticleForm,
-                'pictureForm': pictureForm,
-                'result': 'Photo Add fail',
+            context = {
+                'result': '文章新增成功',
                 'created_at': date.today()
-                }
-                return render(request, 'add_article_result.html', context)
-            
-            # return redirect('post_detail', post_id=post.id)
+            }
+            return render(request, 'add_article_result.html', context)
 
         else:
             context = {
@@ -115,15 +125,12 @@ def add_article(request):
                 'result': 'Add fail',
                 'created_at': date.today()
             }
-        context = {
-            'addarticleForm': addarticleForm,
-            'pictureForm' : pictureForm,
-            'result': '文章新增成功', 
-            'created_at': date.today()
-        }    
-        return render(request, 'add_article_result.html', context)
+            return render(request, 'add_article_result.html', context)
+
     else:
         return HttpResponseBadRequest()
+
+
 def edit_article(request, id):
     post = get_object_or_404(Post, id=id, user=request.user)
 

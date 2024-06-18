@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, UserProfile,Post,Picture
+from .models import User, UserProfile,Post,Picture, Tag
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.password_validation import validate_password, UserAttributeSimilarityValidator, MinimumLengthValidator, CommonPasswordValidator, NumericPasswordValidator
@@ -112,9 +112,15 @@ class EditUserForm(forms.ModelForm):
         }
 
 class AddArticleForm(forms.ModelForm):
+    tags = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas', 'class': 'form-control'}),
+        required=False,
+        label="標籤"
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'tags']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Enter title here', 'class': 'form-control'}),
             'description': forms.Textarea(attrs={'placeholder': 'Enter your description here', 'class': 'form-control'}),

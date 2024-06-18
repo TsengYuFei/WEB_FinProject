@@ -9,7 +9,7 @@ body {
     width: 900px;  /* 增大容器宽度 */
     margin: 20px auto;
     background-color: #fff;
-    padding: 20px;
+    padding: 0;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
