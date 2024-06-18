@@ -24,6 +24,11 @@
     <div class="post-title">{{ post.title }}</div>
     
     <div class="post-content">{{ post.description }}</div>
+    <div class="post-tags">
+        {% for tag in post.tags.all %}
+            <p>{{ tag }}</p>
+        {% endfor %}
+    </div>
     <div class="post-photos">
         {% for picture in post.pictures.all %}
             <img src="{{ picture.picture.url }}" class="post-photo" alt="Post_photo">

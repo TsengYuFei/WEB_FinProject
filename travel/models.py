@@ -44,8 +44,8 @@ class Post(models.Model):
     title = models.CharField(max_length=20, verbose_name="文章標題")
     description = models.TextField(verbose_name="文章內容")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="發文時間")
-    pictures = models.ManyToManyField(Picture, related_name='posts', verbose_name="內文圖片")
-    tags = models.ManyToManyField(Tag, related_name='posts', verbose_name="標籤")
+    pictures = models.ManyToManyField(Picture, related_name='posts', verbose_name="內文圖片", blank=True)
+    tags = models.ManyToManyField(Tag, related_name='posts', verbose_name="標籤", blank=True)
     
     def __str__(self):
         return self.title
