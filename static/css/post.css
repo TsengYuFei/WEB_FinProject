@@ -7,11 +7,9 @@ body {
 
 .container {
     width: 80%;
-
-    /*width: 900px;   增加這box的寬度 0618註解掉*/
     margin: 20px auto;
     background-color: #fff;
-    padding: 0;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -21,6 +19,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding: 0 20px; /* 增加 padding */
 }
 
 .post-header img {
@@ -28,7 +27,7 @@ body {
     width: 90px;
     height: 90px;
     margin-right: 10px;
-    object-fit: cover; /* 確保不會變形 */
+    object-fit: cover;
 }
 
 .post-header .post-info {
@@ -36,39 +35,42 @@ body {
     flex-direction: column;
 }
 
-.post-author{
+.post-author {
     font-size: 21px;
     color: #272424;
 }
+
 .post-date {
     font-size: 18px;
     color: #555;
 }
+
 .post-title {
     font-size: 27px;
     font-weight: bold;
     margin: 10px 0;
-    padding: 0 5px 0 15px ;
+    padding: 0 20px; /* 增加 padding */
 }
 
 .post-content {
     font-size: 19px;
     line-height: 1.6;
     margin-bottom: 20px;
-    padding: 0 15px;
+    padding: 0 20px; /* 增加 padding */
 }
 
 .post-photo {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 10px;
-    object-fit: cover; /* 確保圖片不會變形 */
+    object-fit: cover;
 }
 
 .post-photos {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    padding: 0 20px; /* 增加 padding */
 }
 
 .post-photos img {
@@ -79,8 +81,8 @@ body {
 
 .actions {
     text-align: right;
+    padding: 0 20px; /* 增加 padding */
 }
-
 
 .actions a {
     display: inline-block;
@@ -97,10 +99,32 @@ body {
 }
 
 .post-author a {
-    text-decoration: none; /* 去掉所有鏈接的底線 */
-    color: #000000; /* 設置鏈接顏色 */
+    text-decoration: none;
+    color: #000000;
 }
 
 .post-author a:hover {
-    color: #009a82; /* 懸停時改變顏色 */
+    color: #009a82;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 20px; /* 增加 padding */
+}
+
+.post-tags a {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #001934;
+    color: #9b9b9b;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.post-tags a:hover {
+    background-color: #0b005c;
+    text-decoration: none;
 }

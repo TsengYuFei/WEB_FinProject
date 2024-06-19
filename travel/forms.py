@@ -140,9 +140,10 @@ class AddArticleForm(forms.ModelForm):
                     instance.pictures.add(picture_instance)
 
             if self.cleaned_data.get('tags'):
-                for tag in self.cleaned_data['tags']:
-                    tag_instance = Tag.objects.create(tag=tag)
-                    instance.tags.add(tag_instance)
+                tag_names = [tag.strip() for tag in self.cleaned_data['tags'].split(',')]
+                for name in tag_names:
+                    tag, created = Tag.objects.get_or_create(name=name)
+                    instance.tags.add(tag)
 
         return instance
      

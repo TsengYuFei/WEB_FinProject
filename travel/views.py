@@ -87,12 +87,18 @@ def add_article(request):
                     picture_instance = Picture.objects.create(picture=picture)
                     post.pictures.add(picture_instance)
 
-            # addarticleForm.save_m2m()
-            context = {
-                'addarticleForm': addarticleForm,
-                'result': '文章新增成功',
-                'created_at': date.today()
-            }
+            tags = addarticleForm.cleaned_data['tags']
+            if tags:
+                tag_names = [tag.strip() for tag in tags.split(',')]
+                for name in tag_names:
+                    tag, created = Tag.objects.get_or_create(name=name)
+                    post.tags.add(tag)
+                    
+            # context = {
+            #     'addarticleForm': addarticleForm,
+            #     'result': '文章新增成功',
+            #     'created_at': date.today()
+            # }
             member_id = request.user.profile.member_id
             return redirect(reverse('travel:personal', args=[member_id]))
             # return render(request, 'add_article_result.html', context)
