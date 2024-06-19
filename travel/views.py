@@ -120,6 +120,7 @@ def edit_article(request, id):
         form = AddArticleForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
+            
             if request.FILES.getlist('pictures'):
                 for picture in request.FILES.getlist('pictures'):
                     print("Picture content:", picture)

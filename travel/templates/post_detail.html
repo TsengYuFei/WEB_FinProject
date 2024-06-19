@@ -2,7 +2,138 @@
 {% load static %}
 {% block CSS %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+<style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #e5f5fd;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px 5px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .post-header img {
+        border-radius: 50%;
+        width: 90px;
+        height: 90px;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+    
+    .post-header .post-info {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .post-author {
+        font-size: 21px;
+        color: #272424;
+    }
+    
+    .post-date {
+        font-size: 18px;
+        color: #555;
+    }
+    
+    .post-title {
+        font-size: 27px;
+        font-weight: bold;
+        margin: 10px 0;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .post-content {
+        font-size: 19px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .post-photo {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+    
+    .post-photos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .post-photos img {
+        flex: 1;
+        max-width: calc(50% - 10px);
+        border-radius: 8px;
+    }
+    
+    .actions {
+        text-align: right;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .actions a {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 5px;
+        background-color: #007bff;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+    }
+    
+    .actions a:hover {
+        background-color: #0056b3;
+    }
+    
+    .post-author a {
+        text-decoration: none;
+        color: #000000;
+    }
+    
+    .post-author a:hover {
+        color: #009a82;
+    }
+    
+    .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding: 0 20px; /* 增加 padding */
+    }
+    
+    .post-tags a {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #f0f0f0;
+        color: #3d3d3d;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    
+    .post-tags a:hover {
+        background-color: #b6b6b6;
+        text-decoration: none;
+    }
+</style>
 {% endblock %}
 
 {% block title %}{{ post.title }}{% endblock %}
@@ -26,7 +157,7 @@
     <div class="post-content">{{ post.description|linebreaksbr }}</div>
     <div class="post-tags">
         {% for tag in post.tags.all %}
-            <a href="">{{ tag }}</a>
+            <a href="">#{{ tag }}</a>
         {% endfor %}
     </div>
     <div class="post-photos">
