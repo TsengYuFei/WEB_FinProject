@@ -2,14 +2,16 @@
 
 {% load static %}
 {% block CSS %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block title %} {{ user.user.username }}的窩 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="about">
+    <div class="row justify-content-center">
+        <div class="col-md-4 about">
             <h1>{{ user.user.username }}</h1>
             {% if user.picture %}
                 <img class="head" src="{{ user.picture.url }}" alt="{{ user.user.username }}的頭貼"><br><br>
@@ -21,7 +23,7 @@
             <b>Profile</b>
             <p class="profile">{{ user.bio }}</p>
         </div>
-        <div class="article">
+        <div class="col-md-8 p-5">
             {% for post in posts %}
                 <div class="post-item">
                     <h2 class="post-title"><a class="post" href="/post_detail/{{ post.id }}">{{ post.title }}</a></h2>
