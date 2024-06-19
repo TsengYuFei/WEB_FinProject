@@ -115,7 +115,6 @@ class EditUserForm(forms.ModelForm):
 
 class AddArticleForm(forms.ModelForm):
     pictures = forms.FileField(widget=MultipleFileInput(attrs={'multiple': True}), required=False)
-
     tags = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas', 'class': 'form-control'}),
         required=False,
@@ -138,20 +137,17 @@ class AddArticleForm(forms.ModelForm):
                 for picture in self.cleaned_data['pictures']:
                     picture_instance = Picture.objects.create(picture=picture)
                     instance.pictures.add(picture_instance)
-
-            if self.cleaned_data.get('tags'):
-                tag_names = [tag.strip() for tag in self.cleaned_data['tags'].split(',')]
-                for name in tag_names:
-                    tag, created = Tag.objects.get_or_create(name=name)
-                    instance.tags.add(tag)
-
+            
+            # Handle tags
+            tags_str = self.cleaned_data.get('tags', '')
+            if tags_str:
+                tag_names = [tag.strip() for tag in tags_str.split(',')]
+                instance.tags.clear()
+                for tag_name in tag_names:
+                    if tag_name:
+                        tag, created = Tag.objects.get_or_create(name=tag_name)
+                        instance.tags.add(tag)
         return instance
-     
-class EditArticleForm(forms.ModelForm):
-   
-    class Meta:
-        model = Post     # 對應的資料
-        fields = ['title','description']
    
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)

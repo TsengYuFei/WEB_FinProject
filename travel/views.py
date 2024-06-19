@@ -121,15 +121,27 @@ def edit_article(request, id):
         if form.is_valid():
             post = form.save(commit=False)
             
+            # Update pictures if any new ones are uploaded
             if request.FILES.getlist('pictures'):
                 for picture in request.FILES.getlist('pictures'):
-                    print("Picture content:", picture)
                     picture_instance = Picture.objects.create(picture=picture)
                     post.pictures.add(picture_instance)
+            
+            # Update tags
+            tags_str = form.cleaned_data.get('tags', '')
+            if tags_str:
+                tag_names = [tag.strip() for tag in tags_str.split(',')]
+                post.tags.clear()  # Clear existing tags to reset
+                for tag_name in tag_names:
+                    if tag_name:
+                        tag, created = Tag.objects.get_or_create(name=tag_name)
+                        post.tags.add(tag)
             post.save()
             return redirect('travel:post_detail', id=post.id)
     else:
-        form = AddArticleForm(instance=post)
+        # Prepopulate the tags field
+        tags_str = ', '.join(tag.name for tag in post.tags.all())
+        form = AddArticleForm(instance=post, initial={'tags': tags_str})
 
     context = {
         'form': form,
