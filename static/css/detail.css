@@ -15,12 +15,10 @@ body {
 
 .about {
     float: left;
-    width: 28%;
     background-color: rgb(177, 170, 231);
     padding: 20px;
     position: relative;
     padding-top: 40px;
-    height: 100vh;
 }
 
 .head {
@@ -70,18 +68,5 @@ body {
 }
 
 
-
-/*多加的*/
-@media screen and (max-width: 850px) {
-    .about, .article {
-        width: 100%;
-        float: none; /* 清除浮動以避免影響響應式 */
-        padding: 10px;
-    }
-    .about {
-        height: 50vh;
-    }
-}
-/*多加的*/
 
   
