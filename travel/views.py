@@ -275,7 +275,7 @@ def search_posts(request):
         if query:
             posts = posts.filter(
                 Q(title__icontains=query) | Q(description__icontains=query) | Q(tags__name__icontains=query)
-            )
+            ).distinct()
 
     return render(request, 'search_results.html', {'form': form, 'posts': posts})
 
